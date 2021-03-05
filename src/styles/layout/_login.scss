@@ -84,37 +84,34 @@
     transform: translateY(-4rem)
   }
 
-  &__radio-group {
-    width: 49%;
-    display: inline-block;
-  }
-
   &__radio-input {
     display: none;
   }
 
   &__radio-label {
-    font-size: 1.6rem;
+    font-size: 1.15rem;
     cursor: pointer;
     position: relative;
-    padding-left: 4rem;
+    padding-left: 2.4rem;
+    color: $primary-grey
   }
 
   &__radio-button {
-    height: 3rem;
-    width: 3rem;
-    border: 5px solid $primary-red;
+    height: 2rem;
+    width: 2rem;
+    border: 3px solid $primary-red;
     border-radius: 50%;
     display: inline-block;
     position: absolute;
     top: -.4rem;
     left: 0;
+    margin-top: .4rem;
 
     &::after {
       content: '';
       display: block;
-      height: 1.3rem;
-      width: 1.3rem;
+      height: .7rem;
+      width: .7rem;
       border-radius: 50%;
       position: absolute;
       top: 50%;
@@ -129,4 +126,11 @@
   &__radio-input:checked ~ &__radio-label &__radio-button::after {
     opacity: 1;
   }
+}
+
+.radio__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4rem !important;
 }
