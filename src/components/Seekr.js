@@ -3,13 +3,14 @@ import { Route, Redirect } from "react-router-dom"
 import { ApplicationViews } from "./ApplicationViews"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
+import { NavBar } from "./navigation/NavBar"
 
 export const Seekr = () => (
     <>
         <Route render={() => {
             if (localStorage.getItem("s_token")) {
                 return <>
-                    {/* <Route component={NavBar} /> */}
+                    <Route component={NavBar} />
                     <Route render={props => <ApplicationViews {...props} />} />
                 </>
             } else {
