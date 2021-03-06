@@ -34,14 +34,13 @@ export const Register = props => {
             "is_seeker": seekr
         }
         console.log(newUser)
-
         return fetch("http://127.0.0.1:8000/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify(newUser).replace(/:[ ]*"false"/,':false' ).replace( /'/g,'"')
+            body: JSON.stringify(newUser).replace(/:[ ]*"(true|false)"/g,':$1' )
         })
             .then(res => res.json())
             .then(res => {
