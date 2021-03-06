@@ -3,7 +3,14 @@ import React from "react"
 export const Home = props => {
   return (
     <>
-      <h1>Home</h1>
+      <button className="log-link fakeLink"
+        onClick={() => {
+            localStorage.removeItem("s_token")
+            localStorage.removeItem("user_id")
+            localStorage.removeItem("seekr")
+            props.history.push({ pathname: "/" })
+        }}
+    >Logout</button>
     </>
   )
 } 

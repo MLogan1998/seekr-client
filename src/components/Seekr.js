@@ -17,7 +17,7 @@ export const Seekr = () => (
             }
         }} />
 
-        <Route path="/login" render={Login} />
-        <Route path="/register" render={Register} />
+        <Route path="/login" render={props => <Login {...props}/>} />
+        <Route path="/register" render={props => <Register {...props}/>} />
     </>
 )
