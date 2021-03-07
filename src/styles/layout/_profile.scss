@@ -5,11 +5,13 @@
   top: 5%;
 }
 
-.flaticon-js-format::before,
-.flaticon-css-1::before, 
+.flaticon-javascript::before,
+.flaticon-css::before, 
 .flaticon-html::before,
-.flaticon-py::before {
-  font-size: 4.3rem !important;
+.flaticon-py::before,
+.flaticon-sql::before,
+.flaticon-php::before {
+  font-size: 4.5rem !important;
   color: $primary-red;
   margin: 0 !important;
 }
@@ -24,4 +26,23 @@
 .check__group {
   display: flex;
   justify-content: center;
+  margin-top: -1.5rem;
+}
+
+.fa-upload {
+  font-size: 2rem;
+  align-self: center;
+}
+
+.fa-upload-red {
+  color: $primary-red;
+  cursor: pointer;
+  font-size: 2rem;
+  align-self: center;
+}
+
+.fa-check-circle {
+  font-size: 2rem;
+  align-self: center;
+  color: rgb(0, 187, 0);
 }

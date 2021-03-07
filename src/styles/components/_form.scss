@@ -4,9 +4,14 @@
     margin-bottom: 1.2rem;
   }
 
+  &__image__input {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__input {
     font-size: 1.15rem;
-    padding: .5rem 1rem;
+    padding: .3rem .8rem;
     border-radius: 2px;
     border: none;
     background-color: rgb(225, 225, 225);
@@ -41,6 +46,7 @@
     font-weight: 700;
     text-align: left;
     margin-top: .4rem;
+    padding-left: .8rem;
     display: block;
     transition: all .3s;
     color: $primary-grey;
