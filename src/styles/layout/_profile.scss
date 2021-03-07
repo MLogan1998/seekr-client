@@ -1,0 +1,27 @@
+.profile__container {
+  width: 80%;
+  padding-left: 3rem;
+  position: absolute;
+  top: 5%;
+}
+
+.flaticon-js-format::before,
+.flaticon-css-1::before, 
+.flaticon-html::before,
+.flaticon-py::before {
+  font-size: 4.3rem !important;
+  color: $primary-red;
+  margin: 0 !important;
+}
+
+.check__container {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items:center;
+  justify-content: center;
+}
+
+.check__group {
+  display: flex;
+  justify-content: center;
+}

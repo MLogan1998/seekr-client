@@ -34,7 +34,7 @@ export const SeekerHome = props => {
             <p className="list__description">Whoohoo! Seekr will let you know when you have matched with an employer, and you can begin communicating with them.</p>
           </div>
         </div>
-        <Link className="list__link" to="/swipe">Get Started &rarr;</Link>
+        <Link className="list__link" to="/profile">Get Started &rarr;</Link>
       </div>
   )
 } 
