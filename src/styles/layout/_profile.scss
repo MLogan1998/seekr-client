@@ -1,0 +1,48 @@
+.profile__container {
+  width: 80%;
+  padding-left: 3rem;
+  position: absolute;
+  top: 5%;
+}
+
+.flaticon-javascript::before,
+.flaticon-css::before, 
+.flaticon-html::before,
+.flaticon-py::before,
+.flaticon-sql::before,
+.flaticon-php::before {
+  font-size: 4.5rem !important;
+  color: $primary-red;
+  margin: 0 !important;
+}
+
+.check__container {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items:center;
+  justify-content: center;
+}
+
+.check__group {
+  display: flex;
+  justify-content: center;
+  margin-top: -1.5rem;
+}
+
+.fa-upload {
+  font-size: 2rem;
+  align-self: center;
+}
+
+.fa-upload-red {
+  color: $primary-red;
+  cursor: pointer;
+  font-size: 2rem;
+  align-self: center;
+}
+
+.fa-check-circle {
+  font-size: 2rem;
+  align-self: center;
+  color: rgb(0, 187, 0);
+}

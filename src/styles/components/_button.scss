@@ -1,22 +1,13 @@
-#btn-text2 {
-  &:link,
-  &:visited {
-      color: $primary-red;
-      text-decoration: none;
-      display: inline-block;
-      border-bottom: 1px solid $primary-red;
-      padding: .3rem;
-      font-size: 1.5rem;
-      transition: all .2s;
-      margin-top: -1.2rem;
-  }
-
+.button__primary {
+  all: unset;
+  color: $primary-red;
+  text-decoration: none;
+  padding: .3rem;
+  font-family: 'Poppins';
+  font-size: 1.5rem;
+  border-bottom: 1px solid $primary-red;
+  
   &:hover {
     border-bottom: 1px solid $primary-grey;
-  }
-
-  &:active {
-      box-shadow: 0 1rem 2rem rgba(0, 0, 0, .05);
-      transform: translateY(0);
   }
 }

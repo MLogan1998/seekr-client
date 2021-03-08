@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom"
 import { Seekr } from "./components/Seekr"
 import "./styles/index.scss"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/icons/flaticon.css';
 
 
 ReactDOM.render(
