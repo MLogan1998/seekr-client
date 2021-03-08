@@ -30,3 +30,19 @@
   box-shadow: 0 1rem 1rem rgba(0,0,0, .1);
   border-radius: 5px;
 }
+
+
+.dialog--password {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width:25rem;
+  height: 10rem;
+  transform: translate(-50%, -50%);
+  font-family: 'Poppins';
+  text-align: center;
+  font-size: 1.6rem;
+  padding: 1rem;
+  background-color: $dark-primary-blue;
+  color: $primary-red;
+}

@@ -3,8 +3,8 @@ import { ProfileContext } from './ProfileProvider';
 import { storage } from '../firebaseConfig';
 import { v4 as uuidv4 } from 'uuid';
 
-export const ProfileForm = () => {
-  const { languages, getLanguages } = useContext(ProfileContext)
+export const ProfileForm = (props) => {
+  const { languages, getLanguages, createProfile } = useContext(ProfileContext)
   const [ projectUrl, setProjectUrl ] = useState(false)
   const [ projectImage, setProjectImage] = useState(null)
   const [ profileUrl, setProfileUrl ] = useState(false)
@@ -80,6 +80,24 @@ export const ProfileForm = () => {
     )
   }
 
+  const userId = localStorage.getItem("user_id")
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    createProfile({
+      user: parseInt(userId),
+      profile_img: currentProfile.profileImg,
+      project_name: currentProfile.projectName,
+      project_detail: currentProfile.projectDetail,
+      project_img: currentProfile.projectImg,
+      bio: currentProfile.bio,
+      github_username: currentProfile.gitHubUser,
+      tech_ed: currentProfile.techEd,
+      languages: currentProfile.languages.map(language => parseInt(language))
+    })
+    .then(() => props.history.push("/home"))
+  }
+
   const handleControlledInputChange = (event) => {
     const newProfileState = Object.assign({}, currentProfile)
     const checkedLanguages = []
@@ -107,9 +125,9 @@ export const ProfileForm = () => {
 
   return (
     <div className="profile__container">
-      <h1 className="list__heading--text margin-bottom-small">Create Profile</h1>
+      <h1 className="list__heading--text mbl">Create Profile</h1>
       <div className="profile__form">
-        <form className="form" autoComplete="off" >
+        <form className="form" autoComplete="off" onSubmit={handleSubmit}>
           <div className="form__group">
             <input name="gitHubUser" type="text" className="form__input form__input-profile" placeholder="GitHub Username" onChange={handleControlledInputChange} required></input>
             <label htmlFor="gitHubUser" className="form__label">GitHub Username</label>
@@ -147,6 +165,7 @@ export const ProfileForm = () => {
           <div className="check__group form__group">
               {languageSelect}
           </div>
+          <button className="button__primary mtl" type="submit">Create Profile &rarr;</button>
         </form>
       </div>
     </div>

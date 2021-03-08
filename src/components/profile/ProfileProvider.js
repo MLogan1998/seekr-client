@@ -15,8 +15,22 @@ export const ProfileProvider = props=> {
       .then(setLanguages)
   }
 
+  const createProfile = profile => {
+    return fetch('http://localhost:8000/profile', {
+        method: 'POST',
+        headers: {
+        "Authorization": `Token ${localStorage.getItem("s_token")}`,
+        'Content-Type': 'application/json',
+        "Accept": "application/json",
+        },
+        body: JSON.stringify(profile)
+    })
+        .then(response => response.json())
+  }
+
+
   return (
-         <ProfileContext.Provider value={{ languages, getLanguages }}>
+         <ProfileContext.Provider value={{ languages, getLanguages, createProfile }}>
             {props.children}
          </ProfileContext.Provider>
   )

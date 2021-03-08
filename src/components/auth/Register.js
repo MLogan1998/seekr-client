@@ -62,9 +62,9 @@ export const Register = props => {
   return (
 <>
     <dialog className="dialog dialog--password" ref={passwordDialog}>
-    <div>Passwords do not match</div>
-    <button className="button--close" onClick={e => passwordDialog.current.close()}>Close</button>
-</dialog>
+      <div>Passwords don't match</div>
+      <button className="button__primary" onClick={e => passwordDialog.current.close()}>Close</button>
+    </dialog>
 
     <div className="login__container">
       <div className="heading__container">
@@ -72,7 +72,7 @@ export const Register = props => {
         <p className="heading__slogan">swipe then hire</p>
       </div>
       <div className="login__form">
-        <form className="form" autoComplete="off" >
+        <form className="form" autoComplete="off" onSubmit={handleRegister}>
           <div className="form__group">
             <input ref={firstName} id="firstName" type="text" className="form__input" placeholder="First Name" required></input>
             <label htmlFor="firstName" className="form__label">First Name</label>
@@ -109,7 +109,7 @@ export const Register = props => {
                 </label>
             </div>
           </div>
-          <Link buttonvariant="link" id="btn-text2" onClick={handleRegister} to="#">Register</Link>
+          <button className="button__primary" type="submit">Register &rarr;</button>
         </form>
       </div>
     </div>

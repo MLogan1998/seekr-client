@@ -9,6 +9,7 @@ export const Login = props => {
     email:"",
     password:""
   })
+  const passwordDialog = React.createRef()
 
   const handleControlledInputChange = (event) => {
     const newUserState = Object.assign({}, user)
@@ -39,20 +40,25 @@ export const Login = props => {
               props.history.push("/home")
           }
           else {
-            props.history.push("/register")
+            passwordDialog.current.showModal()
           }
       })
   }
 
 
   return (
+    <>
+    <dialog className="dialog dialog--password" ref={passwordDialog}>
+      <div className="margin-bottom-small">Incorrect Passowrd</div>
+      <button className="button__primary" onClick={e => passwordDialog.current.close()}>Close</button>
+    </dialog>
     <div className="login__container">
       <div className="heading__container">
         <h1 className="heading__primary">seekr</h1>
         <p className="heading__slogan">swipe then hire</p>
       </div>
       <div className="login__form">
-        <form className="form" autoComplete="off">
+        <form className="form" autoComplete="off" onSubmit={handleLogin}>
           <div className="form__group">
             <input id="email" type="email" className="form__input" placeholder="Email Address" onChange={handleControlledInputChange} required></input>
             <label htmlFor="email" className="form__label">Email Address</label>
@@ -61,10 +67,11 @@ export const Login = props => {
             <input id="password" type="password" className="form__input" placeholder="Password" onChange={handleControlledInputChange} required></input>
             <label htmlFor="password" className="form__label">Password</label>
           </div>
-          <Link to="#" onClick={handleLogin} buttonvariant="link" id="btn-text2">Login</Link>
+          <button className="button__primary" type="submit">Login &rarr;</button>
         </form>
         <Link className="login__link" to="/register" >Not a member yet?</Link>
       </div>
     </div>
+    </>
   )
 } 
