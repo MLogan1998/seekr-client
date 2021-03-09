@@ -1,7 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { ProfileContext } from './ProfileProvider';
 import { storage } from '../firebaseConfig';
-import { v4 as uuidv4 } from 'uuid';
 
 export const ProfileForm = (props) => {
   const { languages, getLanguages, createProfile } = useContext(ProfileContext)
@@ -35,7 +34,6 @@ export const ProfileForm = (props) => {
 
   const profileImgUpload = (e) => {
     const newProfileState = Object.assign({}, currentProfile)
-    const uuid = uuidv4();
     const uploadTask = storage.ref(`profile/${profileImage.name}`).put(profileImage)
     uploadTask.on(
       "state_changed", 
@@ -62,7 +60,6 @@ export const ProfileForm = (props) => {
 
   const projectImgUpload = (e) => {
     const newProfileState = Object.assign({}, currentProfile)
-    const uuid = uuidv4();
     const uploadTask = storage.ref(`project/${projectImage.name}`).put(projectImage)
     uploadTask.on(
       "state_changed", 
