@@ -13,12 +13,30 @@
     font-weight: 600;
     text-shadow: 0 1rem 2rem rgba(0, 0, 0, .2);
     margin-right: -3.5rem;
-    margin-bottom: 4.5rem;
+    margin-bottom: 2rem;
     display: inline-block;
   }
 
   &__item:not(:last-child) {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  &__item {
+
+    &--link {
+      text-decoration: none;
+      font-family: 'Poppins';
+      font-weight: bold;
+      margin-left: .3rem;
+      color: $primary-red;
+
+      &:hover,
+      &:visited,
+      &:active {
+        color: $primary-red;
+        text-decoration: none;
+      }
+    }
   }
 
   &__heading {
@@ -28,14 +46,14 @@
     &--text {
       margin-top: .5rem;
       color: $primary-red;
-      font-size: 2.7rem;
+      font-size: 2.3rem;
       letter-spacing: .1rem;
       font-weight: 200;
     }
 
     &--circle {
-      height: 5.4rem;
-      width: 5.4rem;
+      height: 3.4rem;
+      width: 3.4rem;
       border: 1.5px solid $primary-red;
       border-radius: 50%;
       text-align: center;
@@ -43,10 +61,26 @@
     }
 
     &--number {
-      font-size: 3rem;
+      font-size: 2rem;
       font-weight: 200;
       font-family: 'Poppins';
       color: $primary-red;
+    }
+
+    &--circles {
+      height: 3.4rem;
+      width: 3.4rem;
+      border: 1.5px solid $primary-green;
+      border-radius: 50%;
+      text-align: center;
+      margin-right: 1.3rem;
+    }
+
+    &--numbers {
+      font-size: 2rem;
+      font-weight: 200;
+      font-family: 'Poppins';
+      color: $primary-green;
     }
   }
 

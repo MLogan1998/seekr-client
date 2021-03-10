@@ -1,17 +1,27 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { storage } from '../firebaseConfig';
 
+import { UserContext } from '../auth/UserProvider'
 import { EmployerContext } from './EmployerProvider'
 
 
 export const EmployerProfileForm = (props) => {
-  const { createEmployerProfile} = useContext(EmployerContext)
+  const { createEmployerProfile } = useContext(EmployerContext)
+  const { user, updateUser, getUserById } = useContext(UserContext)
   const [ employerImgUrl, setEmployerImgUrl] = useState(false)
   const [ employerImage, setEmployerImage] = useState(null)
   const [ currentEmployer, setCurrentEmployer] = useState({
     user: "",
     profileImg: ""
   })
+
+  const userId = localStorage.getItem("user_id")
+
+  useEffect(() => {
+    getUserById(userId)
+  }, [])
+
 
   const handleEmployerImage = (e) => {
     e.preventDefault()
@@ -39,14 +49,21 @@ export const EmployerProfileForm = (props) => {
     )
   }
 
-  const userId = localStorage.getItem("user_id")
-
   const handleSubmit = (e) => {
     e.preventDefault()
     createEmployerProfile({
       user: parseInt(userId),
       profile_img: currentEmployer.profileImg,
     })
+    .then(() => updateUser({
+      user: parseInt(userId),
+      is_seeker: user.is_seeker,
+      has_company: user.has_company,
+      has_profile: true,
+      has_listing: user.has_listing,
+      first_name: user.first_name,
+      last_name: user.last_name
+    }))
     .then(() => props.history.push("/home"))
   }
 
