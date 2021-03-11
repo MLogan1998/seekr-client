@@ -28,7 +28,7 @@
     &:focus {
       outline: none;
       box-shadow: 0 1rem 2rem rgba(0,0,0, .1);
-      border-bottom: 3px solid green;
+      border-bottom: 3px solid $primary-green;
     }
 
     &:focus:invalid {
@@ -104,7 +104,7 @@
 
 .radio__container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 4rem !important;
 }
