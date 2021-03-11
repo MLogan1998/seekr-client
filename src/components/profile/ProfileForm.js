@@ -1,9 +1,11 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { ProfileContext } from './ProfileProvider';
+import { UserContext } from '../auth/UserProvider'
 import { storage } from '../firebaseConfig';
 
 export const ProfileForm = (props) => {
   const { languages, getLanguages, createProfile } = useContext(ProfileContext)
+  const { user, updateUser, getUserById } = useContext(UserContext)
   const [ projectUrl, setProjectUrl ] = useState(false)
   const [ projectImage, setProjectImage] = useState(null)
   const [ profileUrl, setProfileUrl ] = useState(false)
@@ -19,6 +21,12 @@ export const ProfileForm = (props) => {
     techEd: "",
     languages: []
   })
+
+  const userId = localStorage.getItem("user_id")
+
+  useEffect(() => {
+    getUserById(userId)
+  }, [])
 
 
   useEffect(() => {
@@ -77,7 +85,6 @@ export const ProfileForm = (props) => {
     )
   }
 
-  const userId = localStorage.getItem("user_id")
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -91,7 +98,15 @@ export const ProfileForm = (props) => {
       github_username: currentProfile.gitHubUser,
       tech_ed: currentProfile.techEd,
       languages: currentProfile.languages.map(language => parseInt(language))
-    })
+    }).then(() => updateUser({
+      user: parseInt(userId),
+      is_seeker: user.is_seeker,
+      has_company: user.has_company,
+      has_profile: true,
+      has_listing: user.has_listing,
+      first_name: user.first_name,
+      last_name: user.last_name
+    }))
     .then(() => props.history.push("/home"))
   }
 

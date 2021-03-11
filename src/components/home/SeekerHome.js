@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useContext, useEffect }  from "react";
+import { UserContext } from '../auth/UserProvider';
 import { Link } from 'react-router-dom'
 
 export const SeekerHome = props => {
+  const { user, getUserById } = useContext(UserContext)
+
+  const userId = localStorage.getItem("user_id")
+ 
+
+  useEffect(() => {
+    getUserById(userId)
+  }, [])
+
+
   return (
       <div className="list">
         <h1 className="list__main__heading">
@@ -9,11 +20,16 @@ export const SeekerHome = props => {
         </h1>
         <div className="list__item">
           <div className="list__heading">
+          {user.has_profile ? 
+            <div className="list__heading--circles list__heading--numbers">1</div>
+            :
             <div className="list__heading--circle list__heading--number">1</div>
-            <h1 className="list__heading--text">Create Your Profile</h1>
+            }
+            <h1 className="list__heading--text">Create Profile</h1>
           </div>
           <div className="list__text-container">
-            <p className="list__description">Show employers your best work! Seekr is designed for employers to match with you based only on your work, experience, and code.</p>
+            <p className="list__description">Show employers your best work! Seekr is designed for employers to match with you based on your work, experience, and code.
+            { user.has_profile? '' : <Link className="list__item--link" to="/profile" >Add Your Profile &rarr;</Link>}</p>
           </div>
         </div>
         <div className="list__item">
@@ -34,7 +50,7 @@ export const SeekerHome = props => {
             <p className="list__description">Whoohoo! Seekr will let you know when you have matched with an employer, and you can begin communicating with them.</p>
           </div>
         </div>
-        <Link className="list__link" to="/profile">Get Started &rarr;</Link>
+        { user.has_profile ? <Link className="list__link" to="/home">start swiping &rarr;</Link> : '' }
       </div>
   )
 } 
