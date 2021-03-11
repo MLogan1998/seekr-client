@@ -30,8 +30,35 @@ export const EmployerProvider = props => {
 }
 
 
+  const createCompanyProfile = company => {
+    return fetch('http://localhost:8000/company', {
+        method: 'POST',
+        headers: {
+        "Authorization": `Token ${localStorage.getItem("s_token")}`,
+        'Content-Type': 'application/json',
+        "Accept": "application/json",
+        },
+        body: JSON.stringify(company)
+    })
+        .then(response => response.json())
+  }
+
+  const createJobListing = joblisting => {
+    return fetch('http://localhost:8000/joblisting', {
+        method: 'POST',
+        headers: {
+        "Authorization": `Token ${localStorage.getItem("s_token")}`,
+        'Content-Type': 'application/json',
+        "Accept": "application/json",
+        },
+        body: JSON.stringify(joblisting).replace(/:[ ]*"(true|false)"/g,':$1' )
+    })
+        .then(response => response.json())
+  }
+
+
   return (
-         <EmployerContext.Provider value={{ createEmployerProfile, employer, getEmployerByUserId }}>
+         <EmployerContext.Provider value={{ createEmployerProfile, employer, getEmployerByUserId, createCompanyProfile, createJobListing }}>
             {props.children}
          </EmployerContext.Provider>
   )

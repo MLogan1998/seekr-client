@@ -10,12 +10,14 @@ import { ProfileForm } from "./profile/ProfileForm"
 import { EmployerProvider } from './employer/EmployerProvider'
 import { CompanyForm } from "./employer/CompanyForm"
 import { EmployerProfileForm } from "./employer/EmployerProfileForm"
+import { JobListingForm } from './employer/JobListingForm'
 
 export const ApplicationViews = () => {
         return <>   
                     <UserProvider>
                         <ProfileProvider>
                             <EmployerProvider>
+                                <Route exact path="/joblisting" render={props => <JobListingForm {...props} />} />
                                 <Route exact path="/employerprofile" render={props => <EmployerProfileForm {...props} />} />
                                 <Route exact path="/company" render={props => <CompanyForm {...props} />} />
                                 <Route exact path="/profile" render={props => <ProfileForm {...props} />} />

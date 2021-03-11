@@ -96,7 +96,7 @@ export const Register = props => {
           <div className="form__group radio__container"  ref={isSeeker}> 
             <div className="form__radio-group">
                 <input id="small" type="radio" className="form__radio-input" name="size" value={true} onChange={handleRadio}  />
-                <label htmlFor="small" className="form__radio-label">
+                <label htmlFor="small" className="form__radio-label mrs">
                     <span className="form__radio-button"></span>
                     Seeker
                 </label>

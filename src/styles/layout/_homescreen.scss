@@ -95,14 +95,14 @@
   &__link {
     text-transform: lowercase;
     font-size: 2.2rem;
-    color: $primary-red;
+    color: $primary-green;
     letter-spacing: .2rem;
     text-decoration: none;
 
     &:hover,
     &:visited,
     &:active {
-      color: $primary-red;
+      color: $primary-green;
       text-decoration: none;
     }
   }
