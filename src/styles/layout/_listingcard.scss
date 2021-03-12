@@ -1,0 +1,80 @@
+.cardContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.swipeCard {
+  position: absolute;
+  width: 90%;
+  top:20%;
+
+  &__content {
+    position: relative;
+    width: 100%;
+    height: 40rem;
+    border-radius: 10px;
+    box-shadow:  0 1rem 1rem rgba(39, 39, 39, 0.1);
+    // border: 1px solid $primary-grey;
+    overflow: hidden;
+
+    &--img {
+      height:70%;
+      width: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover!important;
+      background-color: white;
+    }
+  }
+}
+
+
+.project__info {
+  width: 100% !important;
+  height: 13rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: $medium-primary-blue;
+  padding:10px;
+  border-top: 3.5px solid $primary-red;
+
+  &--name{
+    color:#F05454;
+    font-family: 'Poppins';
+    font-size: 2.4rem;
+  }
+
+  &--description {
+    color: $primary-grey;
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-family: 'Poppins';
+    overflow: hidden;
+  }
+
+  &--circle {
+    height: 4rem;
+    width: 4rem;
+    background-color: #F05454;
+    border-radius: 50%;
+    text-align: center;
+    position: absolute;
+    top: -19%;
+    left: 78%;
+    cursor: pointer;
+  }
+}
+
+
+.fa-info {
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color:white;
+  font-size: 2rem;
+  border-radius: 50%;
+}

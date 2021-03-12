@@ -4,6 +4,7 @@ export const EmployerContext = React.createContext()
 
 export const EmployerProvider = props => {
   const [ employer, setEmployer ] = useState({})
+  const [ listings, setListings ] = useState({})
 
 
   const createEmployerProfile = profile => {
@@ -56,9 +57,19 @@ export const EmployerProvider = props => {
         .then(response => response.json())
   }
 
+  const getJobListings = (id) => {
+    return fetch('http://localhost:8000/joblisting', {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("s_token")}`
+        }
+    })
+    .then(response => response.json())
+    .then(setListings)
+}
+
 
   return (
-         <EmployerContext.Provider value={{ createEmployerProfile, employer, getEmployerByUserId, createCompanyProfile, createJobListing }}>
+         <EmployerContext.Provider value={{ createEmployerProfile, employer, getEmployerByUserId, createCompanyProfile, createJobListing, listings, getJobListings }}>
             {props.children}
          </EmployerContext.Provider>
   )
