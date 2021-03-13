@@ -6,7 +6,7 @@ export const JobListingForm = (props) => {
   const benefits = React.createRef()
   const [ bennies, setBennies ] = useState()
   const { user, updateUser, getUserById } = useContext(UserContext)
-  const { employer, getEmployerByUserId, createJobListing } = useContext(EmployerContext)
+  const { employer, getEmployerByUserId, createJobListing, getCompanyByEmployerId, company} = useContext(EmployerContext)
   const [ currentJob, setCurrentJob] = useState({
     jobTitle: "",
     jobDescription: "",
@@ -24,7 +24,16 @@ export const JobListingForm = (props) => {
     getEmployerByUserId(userId)
   }, [])
 
-  const employerProfileId = employer && employer.results ? employer.results[0].id : ''
+  useEffect(() => {
+    if ( employer && employer.results && !company.results ) {
+      getCompanyId()
+    }
+  }, [employer])
+
+  const getCompanyId = () => getCompanyByEmployerId(employer.results[0].id);
+ 
+  const employerProfileId = employer && employer.results ? employer.results[0].id : '';
+  const companyProfileId = company && company.results ? company.results[0].id : '';
 
   const handleRadio = (e) => {
     setBennies(e.target.value)
@@ -37,9 +46,11 @@ export const JobListingForm = (props) => {
   }
 
   const handleSubmit = (e) => {
+    const companyId = getCompanyByEmployerId(employerProfileId)
     e.preventDefault()
     createJobListing({
       employer: employerProfileId,
+      company: companyProfileId,
       job_description: currentJob.jobDescription,
       salary: currentJob.salary,
       benefits: bennies,

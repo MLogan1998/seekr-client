@@ -1,0 +1,56 @@
+.modal {
+
+  &__body {
+  height: 70rem;
+  background: linear-gradient(to right top, $light-primary-blue, $dark-primary-blue);
+  border: 1px solid $light-primary-blue;
+  }
+
+  &__close {
+    color: $primary-red;
+    font-size: 1.8rem;
+    position: absolute;
+    right: 5%;
+    cursor: pointer;
+  }
+
+  &__heading {
+    color: $primary-red;
+    font-weight: 600;
+    font-family: 'Poppins';
+  }
+
+  &__subheading {
+    color: $primary-red;
+    font-weight: 400;
+    font-size: 1.7rem;
+    font-family: 'Poppins';
+  }
+
+  &__content {
+
+    &--title {
+      font-weight: 600;
+      color: $primary-red;
+      margin-right: .75rem;
+    }
+  }
+
+  &__bennies {
+    display: flex;
+  }
+}
+
+
+.listing {
+  &__section {
+    
+    &--company{
+      margin-top: 5rem;
+    }
+
+    &--job {
+      margin-top: 3rem;
+    }
+  }
+}
