@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import apiKeys from './apiKeys.json';
 
 export const ProfileContext = React.createContext()
 
 export const ProfileProvider = props=> {
   const [ languages, setLanguages ] = useState([]);
+  const [ profiles, setProfiles ] = useState([]);
+  const [ gitHubData, setGitHubData ] = useState([]);
 
   const getLanguages = () => {
     return fetch("http://localhost:8000/languages", {
@@ -28,9 +31,31 @@ export const ProfileProvider = props=> {
         .then(response => response.json())
   }
 
+  const getProfiles = (id) => {
+    return fetch('http://localhost:8000/profile', {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("s_token")}`
+        }
+    })
+    .then(response => response.json())
+    .then(setProfiles)
+}
+
+  const gitHubToken = apiKeys.github.apiKey;
+
+  const getGitHubData = (profile) => {
+    return fetch(`https://api.github.com/users/${profile}/events?per_page=20`, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `token ${gitHubToken}`
+        }
+    })
+      .then(response => response.json())
+      .then(setGitHubData)
+}
 
   return (
-         <ProfileContext.Provider value={{ languages, getLanguages, createProfile }}>
+         <ProfileContext.Provider value={{ languages, getLanguages, createProfile, profiles, getProfiles, getGitHubData, gitHubData }}>
             {props.children}
          </ProfileContext.Provider>
   )

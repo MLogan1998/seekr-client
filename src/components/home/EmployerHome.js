@@ -80,7 +80,7 @@ export const EmployerHome = props => {
             <p className="list__description">Whoohoo! Seekr will let you know when you have matched with a job seeker, and you can begin communicating with them.</p>
           </div>
         </div>
-        { user.has_listing ? <Link className="list__link" to="/home">start swiping &rarr;</Link> : '' }
+        { user.has_listing ? <Link className="list__link" to="/employerswipe">start swiping &rarr;</Link> : '' }
       </div>
   )
 } 

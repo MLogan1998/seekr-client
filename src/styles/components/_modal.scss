@@ -52,5 +52,34 @@
     &--job {
       margin-top: 3rem;
     }
+
+    &--seeker{
+      margin-top: 2.5rem;
+    }
+  }
+}
+
+.tech__container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.github__action {
+  display: flex;
+  align-content: flex-start;
+  justify-content: space-between;
+
+  &--item {
+    color: $primary-grey;
+    font-size: 1.5rem;
+    font-weight: 400;
+    font-family: 'Poppins';
+    overflow: hidden;
+    margin-bottom: 0;
+    padding: .3rem;
+  }
+
+  &:nth-child(odd) {
+    background-color: rgba($dark-primary-blue, .5)
   }
 }

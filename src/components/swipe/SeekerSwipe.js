@@ -13,6 +13,7 @@ export const SeekerSwipe = (props) => {
   }, [])
 
   const handleModalShow = (listingId) => {
+    console.log('hi')
     if (listings && listings.results) {
       const listing = listings.results.find(({id}) => id === listingId)
       listing.modalShow = true;
