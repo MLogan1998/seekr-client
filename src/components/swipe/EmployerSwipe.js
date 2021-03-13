@@ -4,7 +4,7 @@ import { SeekerModal } from './SeekerModal'
 import { ProfileContext } from '../profile/ProfileProvider';
 
 export const EmployerSwipe = (props) => {
-  const { profiles, getProfiles} = useContext(ProfileContext)
+  const { profiles, getProfiles, getGitHubData,} = useContext(ProfileContext)
   const [ modalShow, setModalShow ] = useState(false)
 
   useEffect(() => {
@@ -12,9 +12,9 @@ export const EmployerSwipe = (props) => {
   }, [])
 
   const handleModalShow = (profileId) => {
-    console.log(profileId)
     if (profiles && profiles.results) {
       const profile = profiles.results.find(({id}) => id === profileId)
+      getGitHubData(profile.github_username)
       profile.modalShow = true;
       setModalShow(profile.modalShow)
     }

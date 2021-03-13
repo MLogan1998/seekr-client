@@ -6,14 +6,7 @@ import moment from 'moment';
 export const SeekerModal = (props) => {
   const { getGitHubData, gitHubData } = useContext(ProfileContext)
 
-  useEffect(() => {
-    if(props.profile && props.profile.github_username) {
-      getGitHubData(props.profile.github_username)
-    }
-
-  }, [props.profile])
-
-
+  
   const languageSelect = props.profile && props.profile.languages ? props.profile.languages.map((language => 
       <span className={language.icon} key={language.id}></span>
     )) : ''
@@ -23,7 +16,7 @@ export const SeekerModal = (props) => {
     if (event.type === "PullRequestEvent") {
       const formattedDate = moment(event.created_at).format('MMMM Do, YYYY');
       return <div className="github__action">
-                <a href={event.payload.pull_request.html_url} target="_blank" rel="noopener noreferrer"><p className="github__action--item">{event.payload.pull_request.head.repo.name}</p></a>
+                <a href={event.payload.pull_request.html_url} target="_blank" rel="noopener noreferrer"><p className="github__action--item">{event.payload.pull_request.head.repo.name} <i class="fas fa-external-link-alt"></i></p></a>
                 <p className="github__action--item">{formattedDate}</p>
             </div>
     }
