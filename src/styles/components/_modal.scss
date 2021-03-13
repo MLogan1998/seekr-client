@@ -1,0 +1,8 @@
+.modal {
+
+    &__body {
+    height: 70rem;
+    background: linear-gradient(to right top, $light-primary-blue, $dark-primary-blue);
+    border: 1px solid $light-primary-blue;
+  }
+}

@@ -4,6 +4,7 @@ export const EmployerContext = React.createContext()
 
 export const EmployerProvider = props => {
   const [ employer, setEmployer ] = useState({})
+  const [ company, setCompany ] = useState({})
   const [ listings, setListings ] = useState({})
 
 
@@ -28,6 +29,16 @@ export const EmployerProvider = props => {
     })
     .then(response => response.json())
     .then(setEmployer)
+}
+
+const getCompanyByEmployerId = (id) => {
+    return fetch(`http://localhost:8000/company?employer_profile=${id}`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("s_token")}`
+        }
+    })
+    .then(response => response.json())
+    .then(setCompany)
 }
 
 
@@ -69,7 +80,7 @@ export const EmployerProvider = props => {
 
 
   return (
-         <EmployerContext.Provider value={{ createEmployerProfile, employer, getEmployerByUserId, createCompanyProfile, createJobListing, listings, getJobListings }}>
+         <EmployerContext.Provider value={{ createEmployerProfile, employer, getEmployerByUserId, createCompanyProfile, createJobListing, listings, getJobListings, getCompanyByEmployerId, company }}>
             {props.children}
          </EmployerContext.Provider>
   )
