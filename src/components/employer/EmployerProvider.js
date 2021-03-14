@@ -66,8 +66,8 @@ export const EmployerProvider = (props) => {
       .then((response) => response.json())
   );
 
-  const getJobListings = (id) => (
-    fetch('http://localhost:8000/joblisting', {
+  const getJobListings = (seeker) => (
+    fetch(`http://localhost:8000/joblisting?seeker=${seeker}`, {
       headers: {
         Authorization: `Token ${localStorage.getItem('s_token')}`,
       },

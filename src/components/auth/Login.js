@@ -10,8 +10,7 @@ export const Login = (props) => {
   const passwordDialog = React.createRef();
 
   const handleControlledInputChange = (event) => {
-    // const newUserState = Object.assign({}, user)
-    const newUserState = { ...{}, user };
+    const newUserState = Object.assign({}, user);
     newUserState[event.target.id] = event.target.value;
     setUser(newUserState);
   };
