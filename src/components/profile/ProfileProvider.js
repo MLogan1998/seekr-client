@@ -31,8 +31,8 @@ export const ProfileProvider = (props) => {
       .then((response) => response.json())
   );
 
-  const getProfiles = (id) => (
-    fetch('http://localhost:8000/profile', {
+  const getProfiles = (employer) => (
+    fetch(`http://localhost:8000/profile?employer=${employer}`, {
       headers: {
         Authorization: `Token ${localStorage.getItem('s_token')}`,
       },

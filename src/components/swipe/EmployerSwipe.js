@@ -9,17 +9,18 @@ export const EmployerSwipe = (props) => {
   const { createEmployerAction, employer, getEmployerByUserId } = useContext(EmployerContext);
   const [modalShow, setModalShow] = useState(false);
 
-  useEffect(() => {
-    getProfiles();
-  }, []);
-
   const userId = localStorage.getItem('user_id');
+  const employerProfileId = employer && employer.results ? employer.results[0].id : '';
+
+  useEffect(() => {
+    if (employer && employer.results && !profiles.results) {
+      getProfiles(employerProfileId);
+    }
+  }, [employer]);
 
   useEffect(() => {
     getEmployerByUserId(userId);
   }, []);
-
-  const employerProfileId = employer && employer.results ? employer.results[0].id : '';
 
   const handleModalShow = (profileId) => {
     if (profiles && profiles.results) {
