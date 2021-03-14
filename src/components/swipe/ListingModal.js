@@ -1,9 +1,8 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 
-export const ListingModal = (props) => {
- return (
+export const ListingModal = (props) => (
+  (
     <Modal show={props.modalShow} onHide={() => props.handleModalClose(props.listing.id) } className="modal" centered>
       <Modal.Body className="modal__body">
         <i className="fas fa-times modal__close" onClick={() => props.handleModalClose(props.listing.id) }></i>
@@ -32,5 +31,5 @@ export const ListingModal = (props) => {
         </div>
       </Modal.Body>
     </Modal>
- )
-}
+  )
+);

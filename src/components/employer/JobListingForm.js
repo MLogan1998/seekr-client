@@ -1,53 +1,57 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { EmployerContext } from './EmployerProvider'
-import { UserContext } from '../auth/UserProvider'
+import { EmployerContext } from './EmployerProvider';
+import { UserContext } from '../auth/UserProvider';
 
 export const JobListingForm = (props) => {
-  const benefits = React.createRef()
-  const [ bennies, setBennies ] = useState()
-  const { user, updateUser, getUserById } = useContext(UserContext)
-  const { employer, getEmployerByUserId, createJobListing, getCompanyByEmployerId, company} = useContext(EmployerContext)
-  const [ currentJob, setCurrentJob] = useState({
-    jobTitle: "",
-    jobDescription: "",
-    requirements: "",
-    salary: "",
-  })
+  const benefits = React.createRef();
+  const [bennies, setBennies] = useState();
+  const { user, updateUser, getUserById } = useContext(UserContext);
+  const {
+    employer,
+    getEmployerByUserId,
+    createJobListing,
+    getCompanyByEmployerId,
+    company,
+  } = useContext(EmployerContext);
+  const [currentJob, setCurrentJob] = useState({
+    jobTitle: '',
+    jobDescription: '',
+    requirements: '',
+    salary: '',
+  });
 
-  const userId = localStorage.getItem("user_id")
-
-  useEffect(() => {
-    getUserById(userId)
-  }, [])
-
-  useEffect(() => {
-    getEmployerByUserId(userId)
-  }, [])
+  const userId = localStorage.getItem('user_id');
 
   useEffect(() => {
-    if ( employer && employer.results && !company.results ) {
-      getCompanyId()
+    getUserById(userId);
+  }, []);
+
+  useEffect(() => {
+    getEmployerByUserId(userId);
+  }, []);
+
+  useEffect(() => {
+    if (employer && employer.results && !company.results) {
+      getCompanyId();
     }
-  }, [employer])
+  }, [employer]);
 
   const getCompanyId = () => getCompanyByEmployerId(employer.results[0].id);
- 
   const employerProfileId = employer && employer.results ? employer.results[0].id : '';
   const companyProfileId = company && company.results ? company.results[0].id : '';
 
   const handleRadio = (e) => {
-    setBennies(e.target.value)
-  }
+    setBennies(e.target.value);
+  };
 
   const handleControlledInputChange = (event) => {
-    const newJobListing = Object.assign({}, currentJob)
-    newJobListing[event.target.name] = event.target.value
-    setCurrentJob(newJobListing)
-  }
+    const newJobListing = Object.assign({}, currentJob);
+    newJobListing[event.target.name] = event.target.value;
+    setCurrentJob(newJobListing);
+  };
 
   const handleSubmit = (e) => {
-    const companyId = getCompanyByEmployerId(employerProfileId)
-    e.preventDefault()
+    e.preventDefault();
     createJobListing({
       employer: employerProfileId,
       company: companyProfileId,
@@ -55,20 +59,19 @@ export const JobListingForm = (props) => {
       salary: currentJob.salary,
       benefits: bennies,
       requirements: currentJob.requirements,
-      job_title: currentJob.jobTitle
+      job_title: currentJob.jobTitle,
     })
-    .then(() => updateUser({
-      user: parseInt(userId),
-      is_seeker: user.is_seeker,
-      has_company: user.has_company,
-      has_profile: user.has_profile,
-      has_listing: true,
-      first_name: user.first_name,
-      last_name: user.last_name
-    }))
-    .then(() => props.history.push("/home"))
-  }
-
+      .then(() => updateUser({
+        user: parseInt(userId),
+        is_seeker: user.is_seeker,
+        has_company: user.has_company,
+        has_profile: user.has_profile,
+        has_listing: true,
+        first_name: user.first_name,
+        last_name: user.last_name,
+      }))
+      .then(() => props.history.push('/home'));
+  };
 
   return (
     <div className="profile__container">
@@ -80,14 +83,14 @@ export const JobListingForm = (props) => {
             <label htmlFor="jobTitle" className="form__label">Job Title</label>
           </div>
           <div className="form__group">
-              <textarea name="jobDescription" rows="6" className="form__input form__input-profile" placeholder="Job Description (Max 300 Characters)" onChange={handleControlledInputChange}  required></textarea>
-              <label htmlFor="jobDescription" className="form__label">Job Description</label>
+            <textarea name="jobDescription" rows="6" className="form__input form__input-profile" placeholder="Job Description (Max 300 Characters)" onChange={handleControlledInputChange} required></textarea>
+            <label htmlFor="jobDescription" className="form__label">Job Description</label>
           </div>
           <div className="form__group">
-              <textarea name="requirements" rows="6" className="form__input form__input-profile" placeholder="Requirements (Max 300 Characters)" onChange={handleControlledInputChange}  required></textarea>
-              <label htmlFor="requirements" className="form__label">Requirements</label>
+            <textarea name="requirements" rows="6" className="form__input form__input-profile" placeholder="Requirements (Max 300 Characters)" onChange={handleControlledInputChange} required></textarea>
+            <label htmlFor="requirements" className="form__label">Requirements</label>
           </div>
-          <div className="form__group radio__container"  ref={benefits}> 
+          <div className="form__group radio__container" ref={benefits}>
             <div className="form__radio-group">
                 <input id="small" type="radio" className="form__radio-input" name="bennies" value={true} onChange={handleRadio}/>
                 <label htmlFor="small" className="form__radio-label mrl">
@@ -111,5 +114,5 @@ export const JobListingForm = (props) => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};

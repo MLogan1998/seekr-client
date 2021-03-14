@@ -1,29 +1,24 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { ProfileContext } from '../profile/ProfileProvider';
 import moment from 'moment';
+import { ProfileContext } from '../profile/ProfileProvider';
 
 export const SeekerModal = (props) => {
-  const { getGitHubData, gitHubData } = useContext(ProfileContext)
+  const { gitHubData } = useContext(ProfileContext);
 
-  
-  const languageSelect = props.profile && props.profile.languages ? props.profile.languages.map((language => 
-      <span className={language.icon} key={language.id}></span>
-    )) : ''
+  const languageSelect = props.profile && props.profile.languages ? props.profile.languages.map(((language) => <span className={language.icon} key={language.id}></span>)) : '';
 
-
-  const gitHubActivity = gitHubData ? gitHubData.map((event =>{
-    if (event.type === "PullRequestEvent") {
+  const gitHubActivity = gitHubData ? gitHubData.map(((event) => {
+    if (event.type === 'PullRequestEvent') {
       const formattedDate = moment(event.created_at).format('MMMM Do, YYYY');
       return <div className="github__action">
-                <a href={event.payload.pull_request.html_url} target="_blank" rel="noopener noreferrer"><p className="github__action--item">{event.payload.pull_request.head.repo.name} <i class="fas fa-external-link-alt"></i></p></a>
+                <a href={event.payload.pull_request.html_url} target="_blank" rel="noopener noreferrer"><p className="github__action--item">{event.payload.pull_request.head.repo.name} <i className="fas fa-external-link-alt"></i></p></a>
                 <p className="github__action--item">{formattedDate}</p>
-            </div>
-    }
-  })) : ''
+            </div>;
+    } return '';
+  })) : '';
 
-
- return (
+  return (
     <Modal show={props.modalShow} onHide={() => props.handleModalClose(props.profile.id) } className="modal" centered>
       <Modal.Body className="modal__body">
         <i className="fas fa-times modal__close" onClick={() => props.handleModalClose(props.profile.id) }></i>
@@ -45,7 +40,7 @@ export const SeekerModal = (props) => {
             </div>
             <div className="tech__container">
             {languageSelect}
-            </div>       
+            </div>
         </div>
         <div className="listing__section listing__section--seeker">
             <div className="listing__section--heading">
@@ -56,5 +51,5 @@ export const SeekerModal = (props) => {
         </div>
       </Modal.Body>
     </Modal>
- )
-}
+  );
+};

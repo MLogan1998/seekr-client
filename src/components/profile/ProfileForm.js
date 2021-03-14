@@ -1,93 +1,91 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { ProfileContext } from './ProfileProvider';
-import { UserContext } from '../auth/UserProvider'
+import { UserContext } from '../auth/UserProvider';
 import { storage } from '../firebaseConfig';
 
 export const ProfileForm = (props) => {
-  const { languages, getLanguages, createProfile } = useContext(ProfileContext)
-  const { user, updateUser, getUserById } = useContext(UserContext)
-  const [ projectUrl, setProjectUrl ] = useState(false)
-  const [ projectImage, setProjectImage] = useState(null)
-  const [ profileUrl, setProfileUrl ] = useState(false)
-  const [ profileImage, setProfileImage] = useState(null)
-  const [ currentProfile, setCurrentProfile ] = useState({
-    user: "",
-    gitHubUser: "",
-    profileImg: "",
-    projectName: "",
-    projectDetail: "",
-    projectImg: "",
-    bio: "",
-    techEd: "",
-    languages: []
-  })
+  const { languages, getLanguages, createProfile } = useContext(ProfileContext);
+  const { user, updateUser, getUserById } = useContext(UserContext);
+  const [projectUrl, setProjectUrl] = useState(false);
+  const [projectImage, setProjectImage] = useState(null);
+  const [profileUrl, setProfileUrl] = useState(false);
+  const [profileImage, setProfileImage] = useState(null);
+  const [currentProfile, setCurrentProfile] = useState({
+    user: '',
+    gitHubUser: '',
+    profileImg: '',
+    projectName: '',
+    projectDetail: '',
+    projectImg: '',
+    bio: '',
+    techEd: '',
+    languages: [],
+  });
 
-  const userId = localStorage.getItem("user_id")
-
-  useEffect(() => {
-    getUserById(userId)
-  }, [])
-
+  const userId = localStorage.getItem('user_id');
 
   useEffect(() => {
-    getLanguages()
-  }, [])
+    getUserById(userId);
+  }, []);
+
+  useEffect(() => {
+    getLanguages();
+  }, []);
 
   const handleProfileImage = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const file = e.target.files[0];
-    setProfileUrl(false)
+    setProfileUrl(false);
     setProfileImage(file);
-  }
+  };
 
   const profileImgUpload = (e) => {
-    const newProfileState = Object.assign({}, currentProfile)
-    const uploadTask = storage.ref(`profile/${profileImage.name}`).put(profileImage)
+    const newProfileState = Object.assign({}, currentProfile);
+    const uploadTask = storage.ref(`profile/${profileImage.name}`).put(profileImage);
     uploadTask.on(
-      "state_changed", 
+      'state_changed',
       () => {
         storage
-          .ref("/profile")
+          .ref('/profile')
           .child(profileImage.name)
           .getDownloadURL()
-          .then(url => {
-            newProfileState['profileImg'] = url
-            setCurrentProfile(newProfileState)
-            setProfileUrl(true)
-          })
-      }
-    )
-  }
+          .then((url) => {
+            newProfileState.profileImg = url;
+            setCurrentProfile(newProfileState);
+            setProfileUrl(true);
+          });
+      },
+    );
+  };
 
   const handleProjectImage = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const file = e.target.files[0];
-    setProjectUrl(false)
+    setProjectUrl(false);
     setProjectImage(file);
-  }
+  };
 
   const projectImgUpload = (e) => {
-    const newProfileState = Object.assign({}, currentProfile)
-    const uploadTask = storage.ref(`project/${projectImage.name}`).put(projectImage)
+    const newProfileState = Object.assign({}, currentProfile);
+    const uploadTask = storage.ref(`project/${projectImage.name}`).put(projectImage);
     uploadTask.on(
-      "state_changed", 
+      'state_changed',
       () => {
         storage
-          .ref("/project")
+          .ref('/project')
           .child(projectImage.name)
           .getDownloadURL()
-          .then(url => {
-            newProfileState['projectImg'] = url
-            setCurrentProfile(newProfileState)
-            setProjectUrl(true)
-          })
-      }
-    )
-  }
-
+          .then((url) => {
+            newProfileState.projectImg = url;
+            setCurrentProfile(newProfileState);
+            setProjectUrl(true);
+          });
+      },
+    );
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     createProfile({
       user: parseInt(userId),
       profile_img: currentProfile.profileImg,
@@ -97,7 +95,7 @@ export const ProfileForm = (props) => {
       bio: currentProfile.bio,
       github_username: currentProfile.gitHubUser,
       tech_ed: currentProfile.techEd,
-      languages: currentProfile.languages.map(language => parseInt(language))
+      languages: currentProfile.languages.map((language) => parseInt(language)),
     }).then(() => updateUser({
       user: parseInt(userId),
       is_seeker: user.is_seeker,
@@ -105,35 +103,33 @@ export const ProfileForm = (props) => {
       has_profile: true,
       has_listing: user.has_listing,
       first_name: user.first_name,
-      last_name: user.last_name
+      last_name: user.last_name,
     }))
-    .then(() => props.history.push("/home"))
-  }
+      .then(() => props.history.push('/home'));
+  };
 
   const handleControlledInputChange = (event) => {
-    const newProfileState = Object.assign({}, currentProfile)
-    const checkedLanguages = []
-    if (event.target.type !== "checkbox") {
-      newProfileState[event.target.name] = event.target.value
+    const newProfileState = Object.assign({}, currentProfile);
+    const checkedLanguages = [];
+    if (event.target.type !== 'checkbox') {
+      newProfileState[event.target.name] = event.target.value;
     } else {
-      const checkeds = document.getElementsByTagName("input")
-      for (let i = 0 ; i < checkeds.length; i++) {
+      const checkeds = document.getElementsByTagName('input');
+      for (let i = 0; i < checkeds.length; i += 1) {
         if (checkeds[i].checked) {
-          checkedLanguages.push(checkeds[i].value)
+          checkedLanguages.push(checkeds[i].value);
         }
       }
-      newProfileState["languages"] = checkedLanguages
+      newProfileState.languages = checkedLanguages;
     }
-    setCurrentProfile(newProfileState)
-  }
+    setCurrentProfile(newProfileState);
+  };
 
-  const languageSelect = languages && languages.results ? languages.results.map((language => 
-    <div className="check__container" key={language.id}>
+  const languageSelect = languages && languages.results ? languages.results.map(((language) => <div className="check__container" key={language.id}>
       <input name="languages" type="checkbox" defaultValue={language.id} className="form__input-checks" onChange={handleControlledInputChange} ></input>
       <label htmlFor={language.name} className="mb-0"><span className={language.icon}></span></label>
     </div>
-    )) : ''
-
+  )) : '';
 
   return (
     <div className="profile__container">
@@ -181,5 +177,5 @@ export const ProfileForm = (props) => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};

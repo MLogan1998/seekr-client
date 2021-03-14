@@ -1,56 +1,52 @@
-import React, { useState } from "react"
-import { Link } from 'react-router-dom'
-// import Button from 'react-bootstrap/Button';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-
-
-export const Login = props => {
+export const Login = (props) => {
   const [user, setUser] = useState({
-    email:"",
-    password:""
-  })
-  const passwordDialog = React.createRef()
+    email: '',
+    password: '',
+  });
+
+  const passwordDialog = React.createRef();
 
   const handleControlledInputChange = (event) => {
-    const newUserState = Object.assign({}, user)
-    newUserState[event.target.id] = event.target.value
-    setUser(newUserState)
-}
-
+    // const newUserState = Object.assign({}, user)
+    const newUserState = { ...{}, user };
+    newUserState[event.target.id] = event.target.value;
+    setUser(newUserState);
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
-    return fetch("http://127.0.0.1:8000/login", {
-      method: "POST",
+    return fetch('http://127.0.0.1:8000/login', {
+      method: 'POST',
       headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify({
-          username: user.email,
-          password: user.password
-      })
-  })
-      .then(res => res.json())
-      .then(res => {
-          if ("valid" in res && res.valid && "token" in res) {
-              localStorage.setItem( "s_token", res.token )
-              localStorage.setItem("user_id", res.user_id)
-              localStorage.setItem("seekr", res.is_seeker)
-              props.history.push("/home")
-          }
-          else {
-            passwordDialog.current.showModal()
-          }
-      })
-  }
-
+        username: user.email,
+        password: user.password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if ('valid' in res && res.valid && 'token' in res) {
+          localStorage.setItem('s_token', res.token);
+          localStorage.setItem('user_id', res.user_id);
+          localStorage.setItem('seekr', res.is_seeker);
+          props.history.push('/home');
+        } else {
+          passwordDialog.current.showModal();
+        }
+      });
+  };
 
   return (
     <>
     <dialog className="dialog dialog--password" ref={passwordDialog}>
       <div className="margin-bottom-small">Incorrect Passowrd</div>
-      <button className="button__primary" onClick={e => passwordDialog.current.close()}>Close</button>
+      <button className="button__primary" onClick={(e) => passwordDialog.current.close()}>Close</button>
     </dialog>
     <div className="login__container">
       <div className="heading__container">
@@ -73,5 +69,5 @@ export const Login = props => {
       </div>
     </div>
     </>
-  )
-} 
+  );
+};
