@@ -3,13 +3,24 @@ import TinderCard from 'react-tinder-card';
 import { ListingModal } from './ListingModal';
 
 import { EmployerContext } from '../employer/EmployerProvider';
+import { ProfileContext } from '../profile/ProfileProvider';
 
 export const SeekerSwipe = (props) => {
   const { listings, getJobListings } = useContext(EmployerContext);
   const [modalShow, setModalShow] = useState(false);
+  const { seeker, getSeekerByUserId, createSeekerAction } = useContext(ProfileContext);
+
+  const userId = localStorage.getItem('user_id');
+  const seekerProfileId = seeker && seeker.results ? seeker.results[0].id : '';
 
   useEffect(() => {
-    getJobListings();
+    if (seeker && seeker.results && !listings.results) {
+      getJobListings(seekerProfileId);
+    }
+  }, [seeker]);
+
+  useEffect(() => {
+    getSeekerByUserId(userId);
   }, []);
 
   const handleModalShow = (listingId) => {
@@ -28,22 +39,26 @@ export const SeekerSwipe = (props) => {
     }
   };
 
-  const onSwipe = (direction) => {
-    if (direction === 'right') {
-      // eslint-disable-next-line no-console
-      console.log('Right');
-    } if (direction === 'left') {
-      // eslint-disable-next-line no-console
-      console.log('Left');
-    }
-  };
-
   return (
     <div>
       <div className="cardContainer">
           {
-            listings && listings.results
-              ? listings.results.map(((listing) => <TinderCard className="swipeCard" key={listing.id} preventSwipe={['up', 'down']} onSwipe={onSwipe}>
+            listings && listings.results && listings.results.length > 0
+              ? listings.results.map(((listing) => <TinderCard className="swipeCard" key={listing.id} preventSwipe={['up', 'down']} onSwipe={(direction) => {
+                if (direction === 'right') {
+                  createSeekerAction({
+                    seeker: seekerProfileId,
+                    seeker_response: true,
+                    job: listing.id,
+                  });
+                } if (direction === 'left') {
+                  createSeekerAction({
+                    seeker: seekerProfileId,
+                    seeker_response: false,
+                    job: listing.id,
+                  });
+                }
+              }}>
                     <div id="card" className="swipeCard__content">
                       <div className="swipeCard__content--img" style={{ backgroundImage: `url(${listing.employer.profile_img})` }}></div>
                     <div className="project__info">
@@ -55,7 +70,10 @@ export const SeekerSwipe = (props) => {
                     </div>
                   </TinderCard>
               ))
-              : ''
+              : <div className="noResults">
+                <i class="far fa-sad-cry noResults__icon mbl"></i>
+                <p className="project__info--description">There are no openings at this time.</p>
+              </div>
           }
           </div>
     </div>

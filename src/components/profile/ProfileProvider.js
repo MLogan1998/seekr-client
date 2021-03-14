@@ -7,6 +7,7 @@ export const ProfileProvider = (props) => {
   const [languages, setLanguages] = useState([]);
   const [profiles, setProfiles] = useState([]);
   const [gitHubData, setGitHubData] = useState([]);
+  const [seeker, setSeeker] = useState({});
 
   const getLanguages = () => (
     fetch('http://localhost:8000/languages', {
@@ -54,6 +55,29 @@ export const ProfileProvider = (props) => {
       .then(setGitHubData)
   );
 
+  const getSeekerByUserId = (userId) => (
+    fetch(`http://localhost:8000/profile?user=${userId}`, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then(setSeeker)
+  );
+
+  const createSeekerAction = (action) => (
+    fetch('http://localhost:8000/seekeraction', {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(action).replace(/:[ ]*"(true|false)"/g, ':$1'),
+    })
+      .then((response) => response.json())
+  );
+
   return (
          <ProfileContext.Provider value={{
            languages,
@@ -63,6 +87,9 @@ export const ProfileProvider = (props) => {
            getProfiles,
            getGitHubData,
            gitHubData,
+           seeker,
+           getSeekerByUserId,
+           createSeekerAction,
          }}>
             {props.children}
          </ProfileContext.Provider>
