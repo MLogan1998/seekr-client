@@ -1,72 +1,67 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { storage } from '../firebaseConfig';
-
-import { UserContext } from '../auth/UserProvider'
-import { EmployerContext } from './EmployerProvider'
-
+import { UserContext } from '../auth/UserProvider';
+import { EmployerContext } from './EmployerProvider';
 
 export const EmployerProfileForm = (props) => {
-  const { createEmployerProfile } = useContext(EmployerContext)
-  const { user, updateUser, getUserById } = useContext(UserContext)
-  const [ employerImgUrl, setEmployerImgUrl] = useState(false)
-  const [ employerImage, setEmployerImage] = useState(null)
-  const [ currentEmployer, setCurrentEmployer] = useState({
-    user: "",
-    profileImg: ""
-  })
+  const { createEmployerProfile } = useContext(EmployerContext);
+  const { user, updateUser, getUserById } = useContext(UserContext);
+  const [employerImgUrl, setEmployerImgUrl] = useState(false);
+  const [employerImage, setEmployerImage] = useState(null);
+  const [currentEmployer, setCurrentEmployer] = useState({
+    user: '',
+    profileImg: '',
+  });
 
-  const userId = localStorage.getItem("user_id")
+  const userId = localStorage.getItem('user_id');
 
   useEffect(() => {
-    getUserById(userId)
-  }, [])
-
+    getUserById(userId);
+  }, []);
 
   const handleEmployerImage = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const file = e.target.files[0];
-    setEmployerImgUrl(false)
+    setEmployerImgUrl(false);
     setEmployerImage(file);
-  }
+  };
 
   const employerImgUpload = (e) => {
-    const newEmployerProfileState = Object.assign({}, currentEmployer)
-    const uploadTask = storage.ref(`employerprofile/${employerImage.name}`).put(employerImage)
+    const newEmployerProfileState = Object.assign({}, currentEmployer);
+    const uploadTask = storage.ref(`employerprofile/${employerImage.name}`).put(employerImage);
     uploadTask.on(
-      "state_changed", 
+      'state_changed',
       () => {
         storage
-          .ref("/employerprofile")
+          .ref('/employerprofile')
           .child(employerImage.name)
           .getDownloadURL()
-          .then(url => {
-            newEmployerProfileState['profileImg'] = url
-            setCurrentEmployer(newEmployerProfileState)
-            setEmployerImgUrl(true)
-          })
-      }
-    )
-  }
+          .then((url) => {
+            newEmployerProfileState.profileImg = url;
+            setCurrentEmployer(newEmployerProfileState);
+            setEmployerImgUrl(true);
+          });
+      },
+    );
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     createEmployerProfile({
       user: parseInt(userId),
       profile_img: currentEmployer.profileImg,
     })
-    .then(() => updateUser({
-      user: parseInt(userId),
-      is_seeker: user.is_seeker,
-      has_company: user.has_company,
-      has_profile: true,
-      has_listing: user.has_listing,
-      first_name: user.first_name,
-      last_name: user.last_name
-    }))
-    .then(() => props.history.push("/home"))
-  }
-
+      .then(() => updateUser({
+        user: parseInt(userId),
+        is_seeker: user.is_seeker,
+        has_company: user.has_company,
+        has_profile: true,
+        has_listing: user.has_listing,
+        first_name: user.first_name,
+        last_name: user.last_name,
+      }))
+      .then(() => props.history.push('/home'));
+  };
 
   return (
     <div className="profile__container">
@@ -84,5 +79,5 @@ export const EmployerProfileForm = (props) => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,87 +1,109 @@
 import React, { useState } from 'react';
 
-export const EmployerContext = React.createContext()
+export const EmployerContext = React.createContext();
 
-export const EmployerProvider = props => {
-  const [ employer, setEmployer ] = useState({})
-  const [ company, setCompany ] = useState({})
-  const [ listings, setListings ] = useState({})
+export const EmployerProvider = (props) => {
+  const [employer, setEmployer] = useState({});
+  const [company, setCompany] = useState({});
+  const [listings, setListings] = useState({});
 
-
-  const createEmployerProfile = profile => {
-    return fetch('http://localhost:8000/employerprofile', {
-        method: 'POST',
-        headers: {
-        "Authorization": `Token ${localStorage.getItem("s_token")}`,
+  const createEmployerProfile = (profile) => (
+    fetch('http://localhost:8000/employerprofile', {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
         'Content-Type': 'application/json',
-        "Accept": "application/json",
-        },
-        body: JSON.stringify(profile)
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(profile),
     })
-        .then(response => response.json())
-  }
+      .then((response) => response.json())
+  );
 
-  const getEmployerByUserId = (id) => {
-    return fetch(`http://localhost:8000/employerprofile?user=${id}`, {
-        headers: {
-            "Authorization": `Token ${localStorage.getItem("s_token")}`
-        }
+  const getEmployerByUserId = (id) => (
+    fetch(`http://localhost:8000/employerprofile?user=${id}`, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
+      },
     })
-    .then(response => response.json())
-    .then(setEmployer)
-}
+      .then((response) => response.json())
+      .then(setEmployer)
+  );
 
-const getCompanyByEmployerId = (id) => {
-    return fetch(`http://localhost:8000/company?employer_profile=${id}`, {
-        headers: {
-            "Authorization": `Token ${localStorage.getItem("s_token")}`
-        }
+  const getCompanyByEmployerId = (id) => (
+    fetch(`http://localhost:8000/company?employer_profile=${id}`, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
+      },
     })
-    .then(response => response.json())
-    .then(setCompany)
-}
+      .then((response) => response.json())
+      .then(setCompany)
+  );
 
-
-  const createCompanyProfile = company => {
-    return fetch('http://localhost:8000/company', {
-        method: 'POST',
-        headers: {
-        "Authorization": `Token ${localStorage.getItem("s_token")}`,
+  const createCompanyProfile = (newCompany) => (
+    fetch('http://localhost:8000/company', {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
         'Content-Type': 'application/json',
-        "Accept": "application/json",
-        },
-        body: JSON.stringify(company)
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(newCompany),
     })
-        .then(response => response.json())
-  }
+      .then((response) => response.json())
+  );
 
-  const createJobListing = joblisting => {
-    return fetch('http://localhost:8000/joblisting', {
-        method: 'POST',
-        headers: {
-        "Authorization": `Token ${localStorage.getItem("s_token")}`,
+  const createJobListing = (joblisting) => (
+    fetch('http://localhost:8000/joblisting', {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
         'Content-Type': 'application/json',
-        "Accept": "application/json",
-        },
-        body: JSON.stringify(joblisting).replace(/:[ ]*"(true|false)"/g,':$1' )
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(joblisting).replace(/:[ ]*"(true|false)"/g, ':$1'),
     })
-        .then(response => response.json())
-  }
+      .then((response) => response.json())
+  );
 
-  const getJobListings = (id) => {
-    return fetch('http://localhost:8000/joblisting', {
-        headers: {
-            "Authorization": `Token ${localStorage.getItem("s_token")}`
-        }
+  const getJobListings = (id) => (
+    fetch('http://localhost:8000/joblisting', {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
+      },
     })
-    .then(response => response.json())
-    .then(setListings)
-}
+      .then((response) => response.json())
+      .then(setListings)
+  );
 
+  const createEmployerAction = (action) => (
+    fetch('http://localhost:8000/employeraction', {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(action).replace(/:[ ]*"(true|false)"/g, ':$1'),
+    })
+      .then((response) => response.json())
+  );
 
   return (
-         <EmployerContext.Provider value={{ createEmployerProfile, employer, getEmployerByUserId, createCompanyProfile, createJobListing, listings, getJobListings, getCompanyByEmployerId, company }}>
+         <EmployerContext.Provider value={
+             {
+               createEmployerProfile,
+               employer,
+               getEmployerByUserId,
+               createCompanyProfile,
+               createJobListing,
+               listings,
+               getJobListings,
+               getCompanyByEmployerId,
+               company,
+               createEmployerAction,
+             }}>
             {props.children}
          </EmployerContext.Provider>
-  )
-}
+  );
+};

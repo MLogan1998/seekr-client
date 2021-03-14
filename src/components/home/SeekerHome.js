@@ -1,17 +1,15 @@
-import React, { useContext, useEffect }  from "react";
+import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../auth/UserProvider';
-import { Link } from 'react-router-dom'
 
-export const SeekerHome = props => {
-  const { user, getUserById } = useContext(UserContext)
+export const SeekerHome = (props) => {
+  const { user, getUserById } = useContext(UserContext);
 
-  const userId = localStorage.getItem("user_id")
- 
+  const userId = localStorage.getItem('user_id');
 
   useEffect(() => {
-    getUserById(userId)
-  }, [])
-
+    getUserById(userId);
+  }, []);
 
   return (
       <div className="list">
@@ -20,16 +18,15 @@ export const SeekerHome = props => {
         </h1>
         <div className="list__item">
           <div className="list__heading">
-          {user.has_profile ? 
-            <div className="list__heading--circles list__heading--numbers">1</div>
-            :
-            <div className="list__heading--circle list__heading--number">1</div>
+          {user.has_profile
+            ? <div className="list__heading--circles list__heading--numbers">1</div>
+            : <div className="list__heading--circle list__heading--number">1</div>
             }
             <h1 className="list__heading--text">Create Profile</h1>
           </div>
           <div className="list__text-container">
             <p className="list__description">Show employers your best work! Seekr is designed for employers to match with you based on your work, experience, and code.
-            { user.has_profile? '' : <Link className="list__item--link" to="/profile" >Add Your Profile &rarr;</Link>}</p>
+            { user.has_profile ? '' : <Link className="list__item--link" to="/profile" >Add Your Profile &rarr;</Link>}</p>
           </div>
         </div>
         <div className="list__item">
@@ -52,5 +49,5 @@ export const SeekerHome = props => {
         </div>
         { user.has_profile ? <Link className="list__link" to="/seekerswipe">start swiping &rarr;</Link> : '' }
       </div>
-  )
-} 
+  );
+};

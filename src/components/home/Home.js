@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { SeekerHome } from './SeekerHome'
-import { EmployerHome } from './EmployerHome'
+import React, { useEffect, useState } from 'react';
+import { SeekerHome } from './SeekerHome';
+import { EmployerHome } from './EmployerHome';
 
-export const Home = props => {
-  const [ userType, setUserType ] = useState()
+export const Home = (props) => {
+  const [userType, setUserType] = useState();
 
   useEffect(() => {
-    const userType = localStorage.getItem("seekr")
-    setUserType(userType)
-  }, [])
-
+    const isSeekr = localStorage.getItem('seekr');
+    setUserType(isSeekr);
+  }, []);
 
   return (
     <>
      { userType === 'true'
-      ? <SeekerHome />
-      : <EmployerHome />
+       ? <SeekerHome />
+       : <EmployerHome />
      }
     </>
-  )
-} 
+  );
+};

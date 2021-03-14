@@ -1,0 +1,27 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "sourceType": "module"
+  },
+  "extends": ["airbnb-base", "react-app"],
+  "globals": {
+    "document": true,
+    "window": true,
+    "$": true,
+    "XMLHttpRequest": true,
+    "allowTemplateLiterals": true
+  },
+  "rules": {
+    "no-console": [1, { "allow": ["error", "warn"] }],
+    "no-debugger": 1,
+    "class-methods-use-this": 0,
+    "linebreak-style": 0,
+    "max-len": [1,275,2],
+    "import/prefer-default-export": 0,
+    "radix": "off",
+    "no-nested-ternary": "off",
+    "react-hooks/exhaustive-deps": 0,
+    "no-unused-vars": 0,
+    "prefer-object-spread": "off"
+  }
+}

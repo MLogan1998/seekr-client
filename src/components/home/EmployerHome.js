@@ -1,16 +1,15 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../auth/UserProvider';
-import { Link } from 'react-router-dom'
 
-export const EmployerHome = props => {
-  const { user, getUserById } = useContext(UserContext)
+export const EmployerHome = (props) => {
+  const { user, getUserById } = useContext(UserContext);
 
-  const userId = localStorage.getItem("user_id")
- 
+  const userId = localStorage.getItem('user_id');
 
   useEffect(() => {
-    getUserById(userId)
-  }, [])
+    getUserById(userId);
+  }, []);
 
   return (
       <div className="list">
@@ -19,25 +18,23 @@ export const EmployerHome = props => {
         </h1>
         <div className="list__item">
           <div className="list__heading">
-            {user.has_profile ? 
-            <div className="list__heading--circles list__heading--numbers">1</div>
-            :
-            <div className="list__heading--circle list__heading--number">1</div>
+            {user.has_profile
+              ? <div className="list__heading--circles list__heading--numbers">1</div>
+              : <div className="list__heading--circle list__heading--number">1</div>
             }
             <h1 className="list__heading--text">Create Profile</h1>
           </div>
           <div className="list-text-container">
             <p className="list__description">Create your profile. Your name and image will not be seen by seekers until you match!
-            { user.has_profile? '' : <Link className="list__item--link" to="/employerprofile" >Add Your Profile &rarr;</Link>}
+            { user.has_profile ? '' : <Link className="list__item--link" to="/employerprofile" >Add Your Profile &rarr;</Link>}
             </p>
           </div>
         </div>
         <div className="list__item">
         <div className="list__heading">
-            {user.has_company ? 
-            <div className="list__heading--circles list__heading--numbers">2</div>
-            :
-            <div className="list__heading--circle list__heading--number">2</div>
+            {user.has_company
+              ? <div className="list__heading--circles list__heading--numbers">2</div>
+              : <div className="list__heading--circle list__heading--number">2</div>
             }
             <h1 className="list__heading--text">Create Company</h1>
           </div>
@@ -49,16 +46,15 @@ export const EmployerHome = props => {
         </div>
         <div className="list__item">
           <div className="list__heading">
-          {user.has_listing ? 
-            <div className="list__heading--circles list__heading--numbers">3</div>
-            :
-            <div className="list__heading--circle list__heading--number">3</div>
-            }
+          {user.has_listing
+            ? <div className="list__heading--circles list__heading--numbers">3</div>
+            : <div className="list__heading--circle list__heading--number">3</div>
+          }
             <h1 className="list__heading--text">Add Job Listing</h1>
           </div>
           <div className="list-text-container">
             <p className="list__description">Add your job listing to seekr. What are you looking for in a developer? Front-End? Back-End? Full Stack?
-            { user.has_listing && user.has_company ?  '' : user.has_company? <Link className="list__item--link" to="/joblisting" >Add Job Listing  &rarr;</Link> : ''}
+            { user.has_listing && user.has_company ? '' : user.has_company ? <Link className="list__item--link" to="/joblisting" >Add Job Listing  &rarr;</Link> : ''}
             </p>
           </div>
         </div>
@@ -82,5 +78,5 @@ export const EmployerHome = props => {
         </div>
         { user.has_listing ? <Link className="list__link" to="/employerswipe">start swiping &rarr;</Link> : '' }
       </div>
-  )
-} 
+  );
+};
