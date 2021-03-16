@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import TinderCard from 'react-tinder-card';
 import { ListingModal } from './ListingModal';
-
 import { EmployerContext } from '../employer/EmployerProvider';
 import { ProfileContext } from '../profile/ProfileProvider';
 
@@ -12,7 +12,6 @@ export const SeekerSwipe = (props) => {
     seeker,
     getSeekerByUserId,
     createSeekerAction,
-    seekerMatch,
   } = useContext(ProfileContext);
 
   const userId = localStorage.getItem('user_id');
@@ -43,6 +42,34 @@ export const SeekerSwipe = (props) => {
       setModalShow(listing.modalShow);
     }
   };
+
+  const notify = () => toast.success('You just matched!', {
+    position: 'bottom-center',
+    autoClose: 1600,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+
+  const seekerMatch = (match) => (
+    fetch('http://localhost:8000/match/seekermatch', {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(match).replace(/:[ ]*"(true|false)"/g, ':$1'),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.created === false) {
+          notify();
+        }
+      })
+  );
 
   return (
     <div>
@@ -86,6 +113,17 @@ export const SeekerSwipe = (props) => {
               </div>
           }
           </div>
+          <ToastContainer
+              position="bottom-center"
+              autoClose={1400}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+          />
     </div>
   );
 };
