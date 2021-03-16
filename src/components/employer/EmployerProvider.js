@@ -100,19 +100,6 @@ export const EmployerProvider = (props) => {
       .then(setListing)
   );
 
-  const employerMatch = (match) => (
-    fetch('http://localhost:8000/match/employermatch', {
-      method: 'POST',
-      headers: {
-        Authorization: `Token ${localStorage.getItem('s_token')}`,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(match).replace(/:[ ]*"(true|false)"/g, ':$1'),
-    })
-      .then((response) => response.json())
-  );
-
   return (
          <EmployerContext.Provider value={
              {
@@ -128,7 +115,6 @@ export const EmployerProvider = (props) => {
                createEmployerAction,
                getListingByEmployerId,
                listing,
-               employerMatch,
              }}>
             {props.children}
          </EmployerContext.Provider>
