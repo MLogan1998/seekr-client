@@ -17,6 +17,7 @@ export const EmployerSwipe = (props) => {
     getEmployerByUserId,
     listing,
     getListingByEmployerId,
+    employerMatch,
   } = useContext(EmployerContext);
 
   const [modalShow, setModalShow] = useState(false);
@@ -78,7 +79,13 @@ export const EmployerSwipe = (props) => {
                     employer_response: true,
                     seeker: profile.id,
                     job: listingRef.current,
-                  });
+                  })
+                    .then(() => employerMatch({
+                      employer: employerProfileId,
+                      seeker: profile.id,
+                      job: listingRef.current,
+                      employer_response: true,
+                    }));
                 } if (direction === 'left') {
                   createEmployerAction({
                     employer: employerProfileId,

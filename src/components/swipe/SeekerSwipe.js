@@ -8,7 +8,12 @@ import { ProfileContext } from '../profile/ProfileProvider';
 export const SeekerSwipe = (props) => {
   const { listings, getJobListings } = useContext(EmployerContext);
   const [modalShow, setModalShow] = useState(false);
-  const { seeker, getSeekerByUserId, createSeekerAction } = useContext(ProfileContext);
+  const {
+    seeker,
+    getSeekerByUserId,
+    createSeekerAction,
+    seekerMatch,
+  } = useContext(ProfileContext);
 
   const userId = localStorage.getItem('user_id');
   const seekerProfileId = seeker && seeker.results ? seeker.results[0].id : '';
@@ -50,7 +55,12 @@ export const SeekerSwipe = (props) => {
                     seeker: seekerProfileId,
                     seeker_response: true,
                     job: listing.id,
-                  });
+                  })
+                    .then(() => seekerMatch({
+                      seeker: seekerProfileId,
+                      job: listing.id,
+                      seeker_response: true,
+                    }));
                 } if (direction === 'left') {
                   createSeekerAction({
                     seeker: seekerProfileId,
