@@ -1,4 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+} from 'react';
 import TinderCard from 'react-tinder-card';
 import { SeekerModal } from './SeekerModal';
 import { ProfileContext } from '../profile/ProfileProvider';
@@ -6,11 +11,18 @@ import { EmployerContext } from '../employer/EmployerProvider';
 
 export const EmployerSwipe = (props) => {
   const { profiles, getProfiles, getGitHubData } = useContext(ProfileContext);
-  const { createEmployerAction, employer, getEmployerByUserId } = useContext(EmployerContext);
-  const [modalShow, setModalShow] = useState(false);
+  const {
+    createEmployerAction,
+    employer,
+    getEmployerByUserId,
+    listing,
+    getListingByEmployerId,
+  } = useContext(EmployerContext);
 
-  const userId = localStorage.getItem('user_id');
-  const employerProfileId = employer && employer.results ? employer.results[0].id : '';
+  const [modalShow, setModalShow] = useState(false);
+  const [listingId, setListingId] = useState(null);
+  const listingRef = useRef();
+  listingRef.current = listingId;
 
   useEffect(() => {
     if (employer && employer.results && !profiles.results) {
@@ -19,8 +31,20 @@ export const EmployerSwipe = (props) => {
   }, [employer]);
 
   useEffect(() => {
+    if (employer && employer.results && !listing.results) {
+      getListingByEmployerId(employerProfileId);
+    }
+  }, [employer]);
+
+  useEffect(() => {
     getEmployerByUserId(userId);
   }, []);
+
+  useEffect(() => {
+    if (listing && listing.results && !listingId) {
+      setListingId(listing.results[0].id);
+    }
+  }, [listing]);
 
   const handleModalShow = (profileId) => {
     if (profiles && profiles.results) {
@@ -39,6 +63,9 @@ export const EmployerSwipe = (props) => {
     }
   };
 
+  const userId = localStorage.getItem('user_id');
+  const employerProfileId = employer && employer.results ? employer.results[0].id : '';
+
   return (
     <div>
       <div className="cardContainer">
@@ -50,19 +77,21 @@ export const EmployerSwipe = (props) => {
                     employer: employerProfileId,
                     employer_response: true,
                     seeker: profile.id,
+                    job: listingRef.current,
                   });
                 } if (direction === 'left') {
                   createEmployerAction({
                     employer: employerProfileId,
                     employer_response: false,
                     seeker: profile.id,
+                    job: listingId,
                   });
                 }
               }}>
                     <div id="card" className="swipeCard__content">
                       <div className="swipeCard__content--img" style={{ backgroundImage: `url(${profile.project_img})` }}></div>
                     <div className="project__info">
-                      <div className="project__info--circle" onClick={() => handleModalShow(profile.id)}><i class="fas fa-info"></i></div>
+                      <div className="project__info--circle" onClick={() => handleModalShow(profile.id)}><i className="fas fa-info"></i></div>
                       <h3 className="project__info--name">{profile.project_name}</h3>
                       <p className="project__info--description">{profile.project_detail}</p>
                     </div>

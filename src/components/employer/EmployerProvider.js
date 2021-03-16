@@ -6,6 +6,7 @@ export const EmployerProvider = (props) => {
   const [employer, setEmployer] = useState({});
   const [company, setCompany] = useState({});
   const [listings, setListings] = useState({});
+  const [listing, setListing] = useState({});
 
   const createEmployerProfile = (profile) => (
     fetch('http://localhost:8000/employerprofile', {
@@ -89,6 +90,16 @@ export const EmployerProvider = (props) => {
       .then((response) => response.json())
   );
 
+  const getListingByEmployerId = (employerId) => (
+    fetch(`http://localhost:8000/joblisting?employer=${employerId}`, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then(setListing)
+  );
+
   return (
          <EmployerContext.Provider value={
              {
@@ -102,6 +113,8 @@ export const EmployerProvider = (props) => {
                getCompanyByEmployerId,
                company,
                createEmployerAction,
+               getListingByEmployerId,
+               listing,
              }}>
             {props.children}
          </EmployerContext.Provider>
