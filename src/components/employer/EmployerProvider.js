@@ -6,6 +6,7 @@ export const EmployerProvider = (props) => {
   const [employer, setEmployer] = useState({});
   const [company, setCompany] = useState({});
   const [listings, setListings] = useState({});
+  const [listing, setListing] = useState({});
 
   const createEmployerProfile = (profile) => (
     fetch('http://localhost:8000/employerprofile', {
@@ -89,6 +90,29 @@ export const EmployerProvider = (props) => {
       .then((response) => response.json())
   );
 
+  const getListingByEmployerId = (employerId) => (
+    fetch(`http://localhost:8000/joblisting?employer=${employerId}`, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then(setListing)
+  );
+
+  const employerMatch = (match) => (
+    fetch('http://localhost:8000/match/employermatch', {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(match).replace(/:[ ]*"(true|false)"/g, ':$1'),
+    })
+      .then((response) => response.json())
+  );
+
   return (
          <EmployerContext.Provider value={
              {
@@ -102,6 +126,9 @@ export const EmployerProvider = (props) => {
                getCompanyByEmployerId,
                company,
                createEmployerAction,
+               getListingByEmployerId,
+               listing,
+               employerMatch,
              }}>
             {props.children}
          </EmployerContext.Provider>

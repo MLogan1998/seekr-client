@@ -78,6 +78,19 @@ export const ProfileProvider = (props) => {
       .then((response) => response.json())
   );
 
+  const seekerMatch = (match) => (
+    fetch('http://localhost:8000/match/seekermatch', {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(match).replace(/:[ ]*"(true|false)"/g, ':$1'),
+    })
+      .then((response) => response.json())
+  );
+
   return (
          <ProfileContext.Provider value={{
            languages,
@@ -90,6 +103,7 @@ export const ProfileProvider = (props) => {
            seeker,
            getSeekerByUserId,
            createSeekerAction,
+           seekerMatch,
          }}>
             {props.children}
          </ProfileContext.Provider>
