@@ -99,7 +99,7 @@ export const SeekerSwipe = (props) => {
                     <div id="card" className="swipeCard__content">
                       <div className="swipeCard__content--img" style={{ backgroundImage: `url(${listing.employer.profile_img})` }}></div>
                     <div className="project__info">
-                      <div className="project__info--circle" onClick={() => handleModalShow(listing.id)}><i class="fas fa-info"></i></div>
+                      <div className="project__info--circle" onClick={() => handleModalShow(listing.id)}><i className="fas fa-info"></i></div>
                       <h3 className="project__info--name">{listing.job_title}</h3>
                       <p className="project__info--description">{listing.job_description}</p>
                     </div>
@@ -108,7 +108,7 @@ export const SeekerSwipe = (props) => {
                   </TinderCard>
               ))
               : <div className="noResults">
-                <i class="far fa-sad-cry noResults__icon mbl"></i>
+                <i className="far fa-sad-cry noResults__icon mbl"></i>
                 <p className="project__info--description">There are no openings at this time.</p>
               </div>
           }

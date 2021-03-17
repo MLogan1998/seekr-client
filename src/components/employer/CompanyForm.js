@@ -60,23 +60,37 @@ export const CompanyForm = (props) => {
       .then(() => props.history.push('/home'));
   };
 
+  // const companyImageUpload = (e) => {
+  //   const newCompanyProfileState = Object.assign({}, currentCompany);
+  //   const uploadTask = storage.ref(`company/${companyImage.name}`).put(companyImage);
+  //   uploadTask.on(
+  //     'state_changed',
+  //     () => {
+  //       storage
+  //         .ref('/company')
+  //         .child(companyImage.name)
+  //         .getDownloadURL()
+  //         .then((url) => {
+  //           newCompanyProfileState.companyLogo = url;
+  //           setCurrentCompany(newCompanyProfileState);
+  //           setCompanyImageUrl(true);
+  //         });
+  //     },
+  //   );
+  // };
+
   const companyImageUpload = (e) => {
+    e.preventDefault();
     const newCompanyProfileState = Object.assign({}, currentCompany);
-    const uploadTask = storage.ref(`company/${companyImage.name}`).put(companyImage);
-    uploadTask.on(
-      'state_changed',
-      () => {
-        storage
-          .ref('/company')
-          .child(companyImage.name)
-          .getDownloadURL()
-          .then((url) => {
-            newCompanyProfileState.companyLogo = url;
-            setCurrentCompany(newCompanyProfileState);
-            setCompanyImageUrl(true);
-          });
-      },
-    );
+    const storageRef = storage.ref(`company/${companyImage.name}`);
+    storageRef.put(companyImage).then((snapshot) => {
+      storageRef.getDownloadURL()
+        .then((url) => {
+          newCompanyProfileState.companyLogo = url;
+          setCurrentCompany(newCompanyProfileState);
+          setCompanyImageUrl(true);
+        });
+    });
   };
 
   return (
@@ -91,7 +105,7 @@ export const CompanyForm = (props) => {
           <div className="form__group">
             <div className="form__image__input">
               <input name="companyLogo" type="file" className="form__input" placeholder="Profile Image" required onChange={handleCompanyImage}></input>
-              {companyImage && companyImageUrl ? <i class="far fa-check-circle"></i> : companyImage ? <i class="fas fa-upload fa-upload-red" onClick={companyImageUpload}></i> : ''}
+              {companyImage && companyImageUrl ? <i className="far fa-check-circle"></i> : companyImage ? <i className="fas fa-upload fa-upload-red" onClick={companyImageUpload}></i> : ''}
             </div>
             <label htmlFor="companyLogo" className="form__label">Company Logo</label>
           </div>
