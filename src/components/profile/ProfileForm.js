@@ -40,22 +40,17 @@ export const ProfileForm = (props) => {
   };
 
   const profileImgUpload = (e) => {
+    e.preventDefault();
     const newProfileState = Object.assign({}, currentProfile);
-    const uploadTask = storage.ref(`profile/${profileImage.name}`).put(profileImage);
-    uploadTask.on(
-      'state_changed',
-      () => {
-        storage
-          .ref('/profile')
-          .child(profileImage.name)
-          .getDownloadURL()
-          .then((url) => {
-            newProfileState.profileImg = url;
-            setCurrentProfile(newProfileState);
-            setProfileUrl(true);
-          });
-      },
-    );
+    const storageRef = storage.ref(`profile/${profileImage.name}`);
+    storageRef.put(projectImage).then((snapshot) => {
+      storageRef.getDownloadURL()
+        .then((url) => {
+          newProfileState.profiletImg = url;
+          setCurrentProfile(newProfileState);
+          setProfileUrl(true);
+        });
+    });
   };
 
   const handleProjectImage = (e) => {
@@ -66,22 +61,17 @@ export const ProfileForm = (props) => {
   };
 
   const projectImgUpload = (e) => {
+    e.preventDefault();
     const newProfileState = Object.assign({}, currentProfile);
-    const uploadTask = storage.ref(`project/${projectImage.name}`).put(projectImage);
-    uploadTask.on(
-      'state_changed',
-      () => {
-        storage
-          .ref('/project')
-          .child(projectImage.name)
-          .getDownloadURL()
-          .then((url) => {
-            newProfileState.projectImg = url;
-            setCurrentProfile(newProfileState);
-            setProjectUrl(true);
-          });
-      },
-    );
+    const storageRef = storage.ref(`project/${projectImage.name}`);
+    storageRef.put(projectImage).then((snapshot) => {
+      storageRef.getDownloadURL()
+        .then((url) => {
+          newProfileState.projectImg = url;
+          setCurrentProfile(newProfileState);
+          setProjectUrl(true);
+        });
+    });
   };
 
   const handleSubmit = (e) => {
@@ -143,7 +133,7 @@ export const ProfileForm = (props) => {
           <div className="form__group">
             <div className="form__image__input">
               <input name="profileImg" type="file" className="form__input" placeholder="Profile Image" onChange={handleProfileImage} required></input>
-              { profileImage && profileUrl ? <i class="far fa-check-circle"></i> : profileImage ? <i class="fas fa-upload fa-upload-red" onClick={profileImgUpload}></i> : ''}
+              { profileImage && profileUrl ? <i className="far fa-check-circle"></i> : profileImage ? <i className="fas fa-upload fa-upload-red" onClick={profileImgUpload}></i> : ''}
             </div>
               <label htmlFor="profileImg" className="form__label">Profile Image</label>
           </div>
@@ -158,7 +148,7 @@ export const ProfileForm = (props) => {
           <div className="form__group">
             <div className="form__image__input">
               <input name="projectImg" type="file" className="form__input" placeholder="Profile Image" onChange={handleProjectImage} required></input>
-              { projectImage && projectUrl ? <i class="far fa-check-circle"></i> : projectImage ? <i class="fas fa-upload fa-upload-red" onClick={projectImgUpload}></i> : ''}
+              { projectImage && projectUrl ? <i className="far fa-check-circle"></i> : projectImage ? <i className="fas fa-upload fa-upload-red" onClick={projectImgUpload}></i> : ''}
             </div>
               <label htmlFor="projectImg" className="form__label">Project Screenshot</label>
           </div>

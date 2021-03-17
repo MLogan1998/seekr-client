@@ -27,22 +27,17 @@ export const EmployerProfileForm = (props) => {
   };
 
   const employerImgUpload = (e) => {
+    e.preventDefault();
     const newEmployerProfileState = Object.assign({}, currentEmployer);
-    const uploadTask = storage.ref(`employerprofile/${employerImage.name}`).put(employerImage);
-    uploadTask.on(
-      'state_changed',
-      () => {
-        storage
-          .ref('/employerprofile')
-          .child(employerImage.name)
-          .getDownloadURL()
-          .then((url) => {
-            newEmployerProfileState.profileImg = url;
-            setCurrentEmployer(newEmployerProfileState);
-            setEmployerImgUrl(true);
-          });
-      },
-    );
+    const storageRef = storage.ref(`employerprofile/${employerImage.name}`);
+    storageRef.put(employerImage).then((snapshot) => {
+      storageRef.getDownloadURL()
+        .then((url) => {
+          newEmployerProfileState.profileImg = url;
+          setCurrentEmployer(newEmployerProfileState);
+          setEmployerImgUrl(true);
+        });
+    });
   };
 
   const handleSubmit = (e) => {
@@ -71,7 +66,7 @@ export const EmployerProfileForm = (props) => {
           <div className="form__group">
             <div className="form__image__input">
               <input name="projectImg" type="file" className="form__input" placeholder="Profile Image" required onChange={handleEmployerImage}></input>
-              { employerImage && employerImgUrl ? <i class="far fa-check-circle"></i> : employerImage ? <i class="fas fa-upload fa-upload-red" onClick={employerImgUpload}></i> : ''}
+              { employerImage && employerImgUrl ? <i className="far fa-check-circle"></i> : employerImage ? <i className="fas fa-upload fa-upload-red" onClick={employerImgUpload}></i> : ''}
             </div>
           <label htmlFor="projectImg" className="form__label">Project Screenshot</label>
           </div>
