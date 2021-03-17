@@ -60,25 +60,6 @@ export const CompanyForm = (props) => {
       .then(() => props.history.push('/home'));
   };
 
-  // const companyImageUpload = (e) => {
-  //   const newCompanyProfileState = Object.assign({}, currentCompany);
-  //   const uploadTask = storage.ref(`company/${companyImage.name}`).put(companyImage);
-  //   uploadTask.on(
-  //     'state_changed',
-  //     () => {
-  //       storage
-  //         .ref('/company')
-  //         .child(companyImage.name)
-  //         .getDownloadURL()
-  //         .then((url) => {
-  //           newCompanyProfileState.companyLogo = url;
-  //           setCurrentCompany(newCompanyProfileState);
-  //           setCompanyImageUrl(true);
-  //         });
-  //     },
-  //   );
-  // };
-
   const companyImageUpload = (e) => {
     e.preventDefault();
     const newCompanyProfileState = Object.assign({}, currentCompany);

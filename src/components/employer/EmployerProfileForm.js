@@ -26,25 +26,6 @@ export const EmployerProfileForm = (props) => {
     setEmployerImage(file);
   };
 
-  // const employerImgUpload = (e) => {
-  //   const newEmployerProfileState = Object.assign({}, currentEmployer);
-  //   const uploadTask = storage.ref(`employerprofile/${employerImage.name}`).put(employerImage);
-  //   uploadTask.on(
-  //     'state_changed',
-  //     () => {
-  //       storage
-  //         .ref('/employerprofile')
-  //         .child(employerImage.name)
-  //         .getDownloadURL()
-  //         .then((url) => {
-  //           newEmployerProfileState.profileImg = url;
-  //           setCurrentEmployer(newEmployerProfileState);
-  //           setEmployerImgUrl(true);
-  //         });
-  //     },
-  //   );
-  // };
-
   const employerImgUpload = (e) => {
     e.preventDefault();
     const newEmployerProfileState = Object.assign({}, currentEmployer);
