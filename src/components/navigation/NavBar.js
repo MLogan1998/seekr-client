@@ -1,7 +1,23 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { UserContext } from '../auth/UserProvider';
+
 export const NavBar = (props) => {
+  const { user, getUserById } = useContext(UserContext);
+  const [userType, setUserType] = useState();
+
+  useEffect(() => {
+    const isSeekr = localStorage.getItem('seekr');
+    setUserType(isSeekr);
+  }, []);
+
+  const userId = localStorage.getItem('user_id');
+
+  useEffect(() => {
+    getUserById(userId);
+  }, []);
+
   const onClickEvent = () => {
     const navButtons = document.getElementById('navi-toggle');
     navButtons.checked = false;
@@ -24,8 +40,18 @@ export const NavBar = (props) => {
           <nav className="navigation__nav">
               <ul className="navigation__list">
                   <li className="navigation__item"><a href="/home" className="navigation__link" onClick={onClickEvent}>Home</a></li>
-                  <li className="navigation__item"><a href="/swipe" className="navigation__link" onClick={onClickEvent}>Swipe</a></li>
-                  <li className="navigation__item"><a href="/swipe" className="navigation__link" onClick={onClickEvent}>Matches</a></li>
+                  {
+                  user && user.has_listing && userType === 'true' ? <div>
+                        <li className="navigation__item"><a href="/seekerswipe" className="navigation__link" onClick={onClickEvent}>Swipe</a></li>
+                        <li className="navigation__item"><a href="/seekermatch" className="navigation__link" onClick={onClickEvent}>Matches</a></li>
+                      </div>
+                    : user && user.has_listing && userType === 'false' ? <div>
+                          <li className="navigation__item"><a href="/employerswipe" className="navigation__link" onClick={onClickEvent}>Swipe</a></li>
+                          <li className="navigation__item"><a href="/employermatch" className="navigation__link" onClick={onClickEvent}>Matches</a></li>
+                        </div>
+                      : ''
+                   }
+
                   <li className="navigation__item"><Link to="/register" className="navigation__link" onClick={handleLogOut}>Log Out</Link></li>
               </ul>
           </nav>

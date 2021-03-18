@@ -16,11 +16,16 @@ import { JobListingForm } from './employer/JobListingForm';
 import { SeekerSwipe } from './swipe/SeekerSwipe';
 import { EmployerSwipe } from './swipe/EmployerSwipe';
 
+import { SeekerMatch } from './match/SeekerMatch';
+import { EmployerMatch } from './match/EmployerMatch';
+
 export const ApplicationViews = () => {
   return <>
     <UserProvider>
         <ProfileProvider>
             <EmployerProvider>
+                <Route exact path="/employermatch" render={(props) => <EmployerMatch {...props} />} />
+                <Route exact path="/seekermatch" render={(props) => <SeekerMatch {...props} />} />
                 <Route exact path="/employerswipe" render={(props) => <EmployerSwipe {...props} />} />
                 <Route exact path="/seekerswipe" render={(props) => <SeekerSwipe {...props} />} />
                 <Route exact path="/joblisting" render={(props) => <JobListingForm {...props} />} />

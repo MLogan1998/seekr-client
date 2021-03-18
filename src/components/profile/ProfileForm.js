@@ -91,7 +91,7 @@ export const ProfileForm = (props) => {
       is_seeker: user.is_seeker,
       has_company: user.has_company,
       has_profile: true,
-      has_listing: user.has_listing,
+      has_listing: true,
       first_name: user.first_name,
       last_name: user.last_name,
     }))
