@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 import React, { useContext, useEffect } from 'react';
 import { ProfileContext } from '../profile/ProfileProvider';
-import { firestore } from '../firebaseConfig';
+import { SeekerMatchCard } from './SeekerMatchCard';
 
 export const SeekerMatch = (props) => {
   const {
@@ -24,7 +24,12 @@ export const SeekerMatch = (props) => {
     }
   }, [seeker]);
 
+  const matchCards = matches && matches.results ? matches.results.map((match) => (<SeekerMatchCard key={match.id} match={match} />)) : '';
+
   return (
-    <h1>SeekerMatch</h1>
+    <div className="match__container">
+      <h1 className="list__main__heading">Matches</h1>
+      { matchCards }
+    </div>
   );
 };

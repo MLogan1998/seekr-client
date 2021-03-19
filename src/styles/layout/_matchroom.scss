@@ -1,0 +1,46 @@
+.chat {
+  position: absolute;
+  bottom: 0%;
+  height: 90%;
+  width: 100%;
+  padding: 5px 10px;
+
+  &__messages {
+    height: 85%;
+    overflow-y: scroll;
+  }
+
+  &__input {
+    position: absolute;
+    bottom: 0%;
+    width: 95%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 1rem auto 1rem auto;
+
+    &--text {
+      min-width: 85%;
+      background-color: rgb(235, 235, 235);
+    }
+    
+    &--icon {
+      color: $primary-red;
+    }
+  }
+}
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: $primary-red;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $primary-red;
+}

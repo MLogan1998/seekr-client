@@ -19,11 +19,14 @@ import { EmployerSwipe } from './swipe/EmployerSwipe';
 import { SeekerMatch } from './match/SeekerMatch';
 import { EmployerMatch } from './match/EmployerMatch';
 
+import { MatchRoom } from './match/MatchRoom';
+
 export const ApplicationViews = () => {
   return <>
     <UserProvider>
         <ProfileProvider>
             <EmployerProvider>
+                <Route exact path="/matchroom/:matchId(\d+)/" render={(props) => <MatchRoom {...props} />}/>
                 <Route exact path="/employermatch" render={(props) => <EmployerMatch {...props} />} />
                 <Route exact path="/seekermatch" render={(props) => <SeekerMatch {...props} />} />
                 <Route exact path="/employerswipe" render={(props) => <EmployerSwipe {...props} />} />
