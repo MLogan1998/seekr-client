@@ -46,7 +46,7 @@ export const ProfileForm = (props) => {
     storageRef.put(projectImage).then((snapshot) => {
       storageRef.getDownloadURL()
         .then((url) => {
-          newProfileState.profiletImg = url;
+          newProfileState.profileImg = url;
           setCurrentProfile(newProfileState);
           setProfileUrl(true);
         });

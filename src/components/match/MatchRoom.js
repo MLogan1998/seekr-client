@@ -52,6 +52,7 @@ export const MatchRoom = (props) => {
         {messages && messages.map((msg) => <Message msg={msg} key={msg.id}/>)}
         <div ref={endOfFeed}></div>
       </div>
+
         <form className="chat__input" onSubmit={sendMessage}>
           <textarea name="message" rows="4" className="chat__input--text" onChange={(e) => { handleFormData(e); }} value={currentMessage}></textarea>
           <i className="far fa-paper-plane fa-2x chat__input--icon" onClick={sendMessage}></i>
