@@ -1,0 +1,50 @@
+.message {
+  font-size: 1.3rem;
+  font-family: 'Poppins';
+
+  &__text {
+    background-color: rgba(202, 202, 202, 0.05);
+    display: inline-block;
+    margin: .5rem;
+    padding: .8rem;
+    border-radius: 10rem;
+  }
+}
+
+
+.sent {
+  float: right;
+  text-align: right;
+
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.sent {
+  float: right;
+  color: $primary-red;
+  width: 70%;
+  text-align: right;
+
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.recieved {
+  float: left;
+  color: $primary-grey;
+  width: 70%;
+  text-align: left;
+
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

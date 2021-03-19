@@ -9,6 +9,7 @@ export const ProfileProvider = (props) => {
   const [profiles, setProfiles] = useState([]);
   const [gitHubData, setGitHubData] = useState([]);
   const [seeker, setSeeker] = useState({});
+  const [matches, setMatches] = useState([]);
 
   const getLanguages = () => (
     fetch('http://localhost:8000/languages', {
@@ -79,6 +80,16 @@ export const ProfileProvider = (props) => {
       .then((response) => response.json())
   );
 
+  const getSeekerMatches = (currentSeeker) => (
+    fetch(`http://localhost:8000/match?seeker=${currentSeeker}`, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('s_token')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then(setMatches)
+  );
+
   return (
          <ProfileContext.Provider value={{
            languages,
@@ -91,6 +102,8 @@ export const ProfileProvider = (props) => {
            seeker,
            getSeekerByUserId,
            createSeekerAction,
+           getSeekerMatches,
+           matches,
          }}>
             {props.children}
          </ProfileContext.Provider>
