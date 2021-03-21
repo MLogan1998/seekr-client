@@ -17,16 +17,16 @@ export const ListingModal = (props) => (
               <h1 className="modal__heading">{props.listing.job_title}</h1>
             </div>
             <div className="modal__content">
-              <p className="project__info--description"><span className="modal__content--title">Job Description: </span>{props.listing.job_description}</p>
+              <h4 className="modal__content--title">Job Description</h4><p className="project__info--description">{props.listing.job_description}</p>
             </div>
             <div className="modal__content">
-              <p className="project__info--description"><span className="modal__content--title">Requiremnts: </span>{props.listing.requirements}</p>
+              <h4 className="modal__content--title">Requiremnts</h4><p className="project__info--description">{props.listing.requirements}</p>
             </div>
             <div className="modal__content">
-              <p className="project__info--description"><span className="modal__content--title">Salary: </span>${props.listing.salary}</p>
+              <h4 className="modal__content--title">Salary</h4><p className="project__info--description">${props.listing.salary}</p>
             </div>
             <div className="modal__content">
-              <p className="project__info--description modal__bennies"><span className="modal__content--title">Benefits: </span>{ props.listing.benefits ? <p className="project__info--description"> Yes</p> : <p className="project__info--description">Not Offered</p>}</p>
+              <h4 className="modal__content--title">Benefits</h4>{ props.listing.benefits ? <p className="project__info--description"> Yes</p> : <p className="project__info--description">Not Offered</p>}
             </div>
         </div>
       </Modal.Body>

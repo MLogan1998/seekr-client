@@ -4,6 +4,18 @@
   top: 8rem;
   padding-left: 2rem;
   padding-right: 1rem;
+
+  @include respond(tab-port) {
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @include respond(desktop) {
+    width: 60%;
+  };
+
+
   
   &__main__heading {
     text-transform: lowercase;
