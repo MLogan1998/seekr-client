@@ -3,6 +3,20 @@
   padding-left: 3rem;
   position: absolute;
   top: 5%;
+
+  @include respond(tab-port) {
+    width: 60%;
+  }
+
+  @include respond(desktop) {
+    top: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
+    background-color: rgba(99, 98, 98, 0.05);
+    box-shadow: 0 1rem 1rem rgba(0,0,0, .1);
+    padding: 2rem;
+  }
 }
 
 .flaticon-javascript::before,

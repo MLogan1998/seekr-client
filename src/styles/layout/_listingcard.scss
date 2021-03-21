@@ -8,6 +8,19 @@
   width: 90%;
   top:20%;
 
+  @include respond(tab-port) {
+    width: 60%;
+  }
+
+  @include respond(desktop) {
+    width: 40%;
+  }
+
+  @include respond(max-desktop) {
+    width: 20%;
+  }
+
+
   &__content {
     position: relative;
     width: 100%;

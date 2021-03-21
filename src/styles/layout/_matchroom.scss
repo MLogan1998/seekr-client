@@ -5,6 +5,16 @@
   width: 100%;
   padding: 5px 10px;
 
+  @include respond(desktop) {
+    width: 65%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @include respond(max-desktop) {
+    width: 50%;
+  }
+
   &__header {
     display: flex;
     flex-direction: column;
@@ -23,8 +33,13 @@
   }
 
   &__messages {
-    height: 81%;
+    height: 75%;
     overflow-y: scroll;
+    padding: 0px 5px;
+
+    @include respond(desktop) {
+      padding: 0px 20px;
+    }
   }
 
   &__input {

@@ -5,9 +5,21 @@
   flex-direction: column;
   padding: 10px;
   width: 90%;
+
+  @include respond(tab-port) {
+    width: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @include respond(desktop) {
+    width: 45%;
+  }
+
+  @include respond(max-desktop) {
+    width: 35%;
+  }
 }
-
-
 
 .match {
   background-color: rgba(99, 98, 98, 0.05);
