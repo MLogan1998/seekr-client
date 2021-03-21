@@ -1,7 +1,7 @@
 .modal {
 
   &__body {
-  height: 70rem;
+  height: 73rem;
   background: linear-gradient(to right top, $light-primary-blue, $dark-primary-blue);
   border: 1px solid $light-primary-blue;
   }
@@ -84,6 +84,6 @@
   }
 }
 
-.fa-external-link-alt {
+.github-link-alt {
   font-size: 1rem;
 }

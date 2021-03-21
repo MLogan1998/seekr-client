@@ -15,6 +15,7 @@ export const ProfileForm = (props) => {
     gitHubUser: '',
     profileImg: '',
     projectName: '',
+    projectURL: '',
     projectDetail: '',
     projectImg: '',
     bio: '',
@@ -43,7 +44,7 @@ export const ProfileForm = (props) => {
     e.preventDefault();
     const newProfileState = Object.assign({}, currentProfile);
     const storageRef = storage.ref(`profile/${profileImage.name}`);
-    storageRef.put(projectImage).then((snapshot) => {
+    storageRef.put(profileImage).then((snapshot) => {
       storageRef.getDownloadURL()
         .then((url) => {
           newProfileState.profileImg = url;
@@ -82,6 +83,7 @@ export const ProfileForm = (props) => {
       project_name: currentProfile.projectName,
       project_detail: currentProfile.projectDetail,
       project_img: currentProfile.projectImg,
+      project_url: currentProfile.projectURL,
       bio: currentProfile.bio,
       github_username: currentProfile.gitHubUser,
       tech_ed: currentProfile.techEd,
@@ -140,6 +142,10 @@ export const ProfileForm = (props) => {
           <div className="form__group">
             <input name="projectName" type="text" className="form__input form__input-profile" placeholder="Featured Project Name" onChange={handleControlledInputChange} required></input>
             <label htmlFor="projectName" className="form__label">Featured Project Name</label>
+          </div>
+          <div className="form__group">
+            <input name="projectURL" type="text" className="form__input form__input-profile" placeholder="Featured Project URL" onChange={handleControlledInputChange} required></input>
+            <label htmlFor="projectURL" className="form__label">Featured Project URL</label>
           </div>
           <div className="form__group">
               <textarea name="projectDetail" rows="6" className="form__input form__input-profile" placeholder="Project Description (Max 300 Characters)" onChange={handleControlledInputChange} required></textarea>

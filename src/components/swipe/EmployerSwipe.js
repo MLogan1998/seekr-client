@@ -99,7 +99,7 @@ export const EmployerSwipe = (props) => {
     <div>
       <div className="cardContainer">
           {
-            profiles && profiles.results
+            profiles && profiles.results && profiles.results.length > 0
               ? profiles.results.map(((profile) => <TinderCard className="swipeCard" key={profile.id} preventSwipe={['up', 'down']} onSwipe={(direction) => {
                 if (direction === 'right') {
                   createEmployerAction({
@@ -127,14 +127,17 @@ export const EmployerSwipe = (props) => {
                       <div className="swipeCard__content--img" style={{ backgroundImage: `url(${profile.project_img})` }}></div>
                     <div className="project__info">
                       <div className="project__info--circle" onClick={() => handleModalShow(profile.id)}><i className="fas fa-info"></i></div>
-                      <h3 className="project__info--name">{profile.project_name}</h3>
+                      <h3 className="project__info--name">{profile.project_name}<a href={profile.project_url} target="_blank" rel="noopener noreferrer"><i className="fas fa-external-link-alt mls card-link-alt"></i></a></h3>
                       <p className="project__info--description">{profile.project_detail}</p>
                     </div>
                     <SeekerModal key={profile.id} handleModalShow={handleModalShow} handleModalClose={handleModalClose} modalShow={profile.modalShow} profile={profile} />
                     </div>
                   </TinderCard>
               ))
-              : ''
+              : <div className="noResults">
+              <i className="far fa-sad-cry noResults__icon mbl"></i>
+              <p className="project__info--description">There are no seekers at this time.</p>
+            </div>
           }
           </div>
           <ToastContainer
