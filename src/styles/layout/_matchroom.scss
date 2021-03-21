@@ -1,12 +1,29 @@
 .chat {
   position: absolute;
   bottom: 0%;
-  height: 90%;
+  height: 93%;
   width: 100%;
   padding: 5px 10px;
 
+  &__header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    &--avatar {
+      width: 4rem;
+      border-radius: 50%;
+    }
+
+    &--text {
+      color: $primary-grey;
+      font-family: 'Poppins';
+    }
+  }
+
   &__messages {
-    height: 85%;
+    height: 81%;
     overflow-y: scroll;
   }
 
@@ -22,6 +39,9 @@
     &--text {
       min-width: 85%;
       background-color: rgb(235, 235, 235);
+      font-size: 1.4rem;
+      font-family: 'Poppins';
+      padding: .5rem;
     }
     
     &--icon {

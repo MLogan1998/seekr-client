@@ -12,7 +12,7 @@ export const SeekerModal = (props) => {
     if (event.type === 'PullRequestEvent') {
       const formattedDate = moment(event.created_at).format('MMMM Do, YYYY');
       return <div className="github__action" key={event.id}>
-                <a href={event.payload.pull_request.html_url} target="_blank" rel="noopener noreferrer"><p className="github__action--item">{event.payload.pull_request.head.repo.name} <i className="fas fa-external-link-alt"></i></p></a>
+                <a href={event.payload.pull_request.html_url} target="_blank" rel="noopener noreferrer"><p className="github__action--item">{event.payload.pull_request.head.repo.name} <i className="fas fa-external-link-alt github-link-alt"></i></p></a>
                 <p className="github__action--item">{formattedDate}</p>
             </div>;
     } return '';
