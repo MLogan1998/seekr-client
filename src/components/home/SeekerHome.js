@@ -4,7 +4,6 @@ import { UserContext } from '../auth/UserProvider';
 
 export const SeekerHome = (props) => {
   const { user, getUserById } = useContext(UserContext);
-
   const userId = localStorage.getItem('user_id');
 
   useEffect(() => {

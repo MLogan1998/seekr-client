@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../auth/UserProvider';
 
 export const NavBar = (props) => {
-  const { user, getUserById } = useContext(UserContext);
+  const { setUser, user, getUserById } = useContext(UserContext);
   const [userType, setUserType] = useState();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export const NavBar = (props) => {
 
   return (
       <div className="navigation">
-        <input id="navi-toggle" type="checkbox" className="navigation__checkbox"></input>
+        <input id="navi-toggle" type="checkbox" className="navigation__checkbox" onClick={() => { getUserById(userId); }}></input>
         <label htmlFor="navi-toggle" className="navigation__button">
             <span className="navigation__icon">&nbsp;</span>
         </label>
