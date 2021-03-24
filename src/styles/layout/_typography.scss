@@ -35,3 +35,20 @@ body {
     color: $primary-red;
   }
 }
+
+
+.swipe__heading {
+  text-transform: lowercase;
+  font-size: 4.5rem;
+  color: $primary-red;
+  letter-spacing: .4rem;
+  font-weight: 600;
+  text-shadow: 0 1rem 2rem rgba(0, 0, 0, .3);
+  margin-right: -3.5rem;
+  margin-bottom: 2rem;
+  display: inline-block;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  font-family: 'Poppins';
+}

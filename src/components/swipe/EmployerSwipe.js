@@ -97,7 +97,9 @@ export const EmployerSwipe = (props) => {
 
   return (
     <div>
+      <h1 className="swipe__heading">swipe</h1>
       <div className="cardContainer">
+
           {
             profiles && profiles.results && profiles.results.length > 0
               ? profiles.results.map(((profile) => <TinderCard className="swipeCard" key={profile.id} preventSwipe={['up', 'down']} onSwipe={(direction) => {

@@ -73,6 +73,7 @@ export const SeekerSwipe = (props) => {
 
   return (
     <div>
+      <h1 className="swipe__heading">swipe</h1>
       <div className="cardContainer">
           {
             listings && listings.results && listings.results.length > 0
@@ -97,7 +98,7 @@ export const SeekerSwipe = (props) => {
                 }
               }}>
                     <div id="card" className="swipeCard__content">
-                      <div className="swipeCard__content--img" style={{ backgroundImage: `url(${listing.employer.profile_img})` }}></div>
+                      <div className="swipeCard__content--img" style={{ backgroundImage: `url(${listing.company.company_logo})` }}></div>
                     <div className="project__info">
                       <div className="project__info--circle" onClick={() => handleModalShow(listing.id)}><i className="fas fa-info"></i></div>
                       <h3 className="project__info--name">{listing.job_title}</h3>
