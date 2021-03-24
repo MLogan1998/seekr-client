@@ -94,7 +94,7 @@ export const CompanyForm = (props) => {
             <textarea name="companyBio" rows="6" className="form__input form__input-profile" placeholder="Company Bio (Max 300 Characters)" onChange={handleControlledInputChange} required></textarea>
             <label htmlFor="companyBio" className="form__label">Company Bio</label>
           </div>
-          <button className="button__primary mtl" type="submit">Add Company &rarr;</button>
+          {companyImageUrl ? <button className="button__primary mtl" type="submit">Add Company &rarr;</button> : ''}
         </form>
       </div>
     </div>

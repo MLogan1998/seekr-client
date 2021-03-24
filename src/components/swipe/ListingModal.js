@@ -20,7 +20,7 @@ export const ListingModal = (props) => (
               <h4 className="modal__content--title">Job Description</h4><p className="project__info--description">{props.listing.job_description}</p>
             </div>
             <div className="modal__content">
-              <h4 className="modal__content--title">Requiremnts</h4><p className="project__info--description">{props.listing.requirements}</p>
+              <h4 className="modal__content--title">Requirements</h4><p className="project__info--description">{props.listing.requirements}</p>
             </div>
             <div className="modal__content">
               <h4 className="modal__content--title">Salary</h4><p className="project__info--description">${props.listing.salary}</p>

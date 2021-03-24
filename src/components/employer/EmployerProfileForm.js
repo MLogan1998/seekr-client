@@ -70,7 +70,7 @@ export const EmployerProfileForm = (props) => {
             </div>
           <label htmlFor="projectImg" className="form__label">Project Screenshot</label>
           </div>
-          <button className="button__primary mtl" type="submit">Add Profile &rarr;</button>
+          { employerImgUrl ? <button className="button__primary mtl" type="submit">Add Profile &rarr;</button> : ''}
         </form>
       </div>
     </div>
