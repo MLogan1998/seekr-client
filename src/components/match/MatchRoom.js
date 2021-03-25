@@ -55,6 +55,12 @@ export const MatchRoom = (props) => {
     scrollToEnd();
   };
 
+  const handleEnter = (e) => {
+    if (e.keyCode === 13) {
+      sendMessage();
+    }
+  };
+
   const endOfFeed = useRef();
   const scrollToEnd = () => {
     endOfFeed.current.scrollIntoView({ behavior: 'smooth' });
@@ -75,7 +81,7 @@ export const MatchRoom = (props) => {
       </div>
       <div ref={endOfFeed}></div>
         <form className="chat__input" onSubmit={sendMessage}>
-          <textarea name="message" rows="3" className="chat__input--text" onChange={(e) => { handleFormData(e); }} value={currentMessage}></textarea>
+          <textarea name="message" rows="3" className="chat__input--text" onChange={(e) => { handleFormData(e); }} onKeyDown={(e) => { handleEnter(e); }} value={currentMessage}></textarea>
           <i className="far fa-paper-plane fa-2x chat__input--icon" onClick={sendMessage}></i>
         </form>
     </div>
